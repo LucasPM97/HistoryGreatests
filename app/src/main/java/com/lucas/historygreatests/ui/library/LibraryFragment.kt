@@ -21,7 +21,7 @@ class LibraryFragment : Fragment() {
     ): View? {
         viewModel =
                 ViewModelProviders.of(this).get(LibraryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        val root = inflater.inflate(R.layout.fragment_library, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         viewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it

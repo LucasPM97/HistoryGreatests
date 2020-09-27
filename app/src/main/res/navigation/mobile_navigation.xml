@@ -8,18 +8,15 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.lucas.historygreatests.ui.home.HomeFragment"
-        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.lucas.historygreatests.ui.trending.TrendingFragment"
-        android:label="@string/title_trending"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_treading" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.lucas.historygreatests.ui.library.LibraryFragment"
-        android:label="@string/title_library"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_library" />
 </navigation>

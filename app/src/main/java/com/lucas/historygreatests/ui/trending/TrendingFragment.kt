@@ -21,7 +21,7 @@ class TrendingFragment : Fragment() {
     ): View? {
         viewModel =
                 ViewModelProviders.of(this).get(TrendingViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val root = inflater.inflate(R.layout.fragment_treading, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
         viewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
