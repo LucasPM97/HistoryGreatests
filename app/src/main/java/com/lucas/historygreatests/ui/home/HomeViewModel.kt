@@ -13,8 +13,8 @@ class HomeViewModel : ViewModel() {
 
 
     fun loadTopics(){
-        loadingError.value = true
-        /*loading.value = true
+        loadingError.value = false
+        loading.value = true
         val topic1 = Topic(topic_id="1",name = "Technology",imageUrl="")
         val topic2 = Topic(topic_id="2",name = "States",imageUrl="")
         val topic3 = Topic(topic_id="3",name = "Me",imageUrl="")
@@ -22,6 +22,6 @@ class HomeViewModel : ViewModel() {
         topics.value = listOf(
             topic1,topic2,topic3
         )
-        loading.value = false*/
+        loading.value = false
     }
 }
