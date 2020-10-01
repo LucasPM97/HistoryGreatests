@@ -1,8 +1,7 @@
-package com.lucas.historygreatests.ui.topics
+package com.lucas.historygreatests.ui.books
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
-import kotlinx.android.synthetic.main.fragment_book_list.*
-import kotlinx.android.synthetic.main.fragment_book_list.text_error
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
  * A fragment representing a list of Items.
@@ -26,7 +23,7 @@ class BookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_book_list, container, false)
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +33,7 @@ class BookFragment : Fragment() {
 
         viewModel.loadBooks()
 
-        bookList.apply {
+        recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }

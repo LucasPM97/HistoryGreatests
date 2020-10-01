@@ -1,39 +1,38 @@
-package com.lucas.historygreatests.ui.topics
+package com.lucas.historygreatests.ui.chapters
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lucas.historygreatests.R
-import com.lucas.historygreatests.models.Book
-import com.lucas.historygreatests.models.Topic
+import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_topic_item.view.*
 
-class BookListAdapter(
-    private var books: List<Book>
-) : RecyclerView.Adapter<BookListAdapter.ViewHolder>() {
+class ChapterListAdapter(
+    private var chapters: List<Chapter>
+) : RecyclerView.Adapter<ChapterListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_book_item, parent, false)
+            .inflate(R.layout.fragment_linear_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = books[position]
-        holder.itemView.name.text = item.name
+        val item = chapters[position]
+        holder.itemView.name.text = item.title
         holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
         holder.itemView.setOnClickListener {
-            //TODO: Add navigation to Chapter list
+            //TODO: Add navigation to Chapter details
         }
     }
 
-    override fun getItemCount(): Int = books.size
+    override fun getItemCount(): Int = chapters.size
 
-    fun updateList(values:List<Book>) {
-        books = values
+    fun updateList(values:List<Chapter>) {
+        chapters = values
         notifyDataSetChanged()
     }
 
