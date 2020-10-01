@@ -1,9 +1,8 @@
-package com.lucas.historygreatests.ui.topics
+package com.lucas.historygreatests.ui.books
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lucas.historygreatests.models.Book
-import com.lucas.historygreatests.models.Topic
 
 class BooksViewModel: ViewModel() {
 

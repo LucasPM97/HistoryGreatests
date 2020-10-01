@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/navigation_books"
-        android:name="com.lucas.historygreatests.ui.topics.BookFragment"
+        android:name="com.lucas.historygreatests.ui.books.ChaptersFragment"
         tools:layout="@layout/fragment_book_list" >
         <argument
             android:name="topic_id"
