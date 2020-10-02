@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.loadFromUrl
-import kotlinx.android.synthetic.main.fragment_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_chapter_item.view.*
+import kotlinx.android.synthetic.main.fragment_chapter_item.view.root_view
+import kotlinx.android.synthetic.main.fragment_topic_item.view.image
+import kotlinx.android.synthetic.main.fragment_topic_item.view.name
 
 class ChapterListAdapter(
     private var chapters: List<Chapter>
@@ -15,7 +18,7 @@ class ChapterListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_linear_item, parent, false)
+            .inflate(R.layout.fragment_chapter_item, parent, false)
         return ViewHolder(view)
     }
 

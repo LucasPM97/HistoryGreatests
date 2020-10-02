@@ -4,10 +4,11 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Book
 import com.lucas.historygreatests.utils.loadFromUrl
-import kotlinx.android.synthetic.main.fragment_topic_item.view.*
+import kotlinx.android.synthetic.main.fragment_book_item.view.*
 
 class BookListAdapter(
     private var books: List<Book>
@@ -15,7 +16,7 @@ class BookListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_linear_item, parent, false)
+            .inflate(R.layout.fragment_book_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -25,7 +26,10 @@ class BookListAdapter(
         holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
         holder.itemView.setOnClickListener {
-            //TODO: Add navigation to Chapter list
+            val action =
+                BookFragmentDirections
+                    .actionNavigationBooksToNavigationChapters(item.book_id)
+            it?.findNavController()?.navigate(action)
         }
     }
 

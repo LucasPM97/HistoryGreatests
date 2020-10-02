@@ -8,9 +8,9 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.lucas.historygreatests.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_topics"
+            android:id="@+id/action_navigation_home_to_navigation_books"
             app:destination="@id/navigation_books" />
     </fragment>
 
@@ -26,10 +26,22 @@
 
     <fragment
         android:id="@+id/navigation_books"
-        android:name="com.lucas.historygreatests.ui.books.ChaptersFragment"
-        tools:layout="@layout/fragment_book_list" >
+        android:name="com.lucas.historygreatests.ui.books.BookFragment"
+        tools:layout="@layout/fragment_list" >
         <argument
             android:name="topic_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_books_to_navigation_chapters"
+            app:destination="@id/navigation_chapters" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chapters"
+        android:name="com.lucas.historygreatests.ui.chapters.ChaptersFragment"
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="book_id"
             app:argType="string" />
     </fragment>
 </navigation>
