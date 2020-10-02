@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Topic
@@ -29,7 +28,7 @@ class TopicListAdapter(
         holder.itemView.setOnClickListener {
             val action =
                 HomeFragmentDirections
-                    .actionNavigationHomeToNavigationTopics(item.topic_id)
+                    .actionNavigationHomeToNavigationBooks(item.topic_id)
             it?.findNavController()?.navigate(action)
         }
 
