@@ -22,6 +22,9 @@ class TopicListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = topics[position]
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            holder.itemView.root_view.clipToOutline = true
+        }
         holder.itemView.name.text = item.name
         holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 

@@ -25,6 +25,9 @@ class ChapterListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = chapters[position]
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            holder.itemView.root_view.clipToOutline = true
+        }
         holder.itemView.name.text = item.title
         holder.itemView.description.text = item.description
         holder.itemView.colored_background.setBackgroundColor(Color.parseColor(item.imageColor))
