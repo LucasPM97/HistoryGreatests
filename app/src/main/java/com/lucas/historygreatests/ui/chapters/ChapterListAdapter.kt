@@ -1,5 +1,6 @@
 package com.lucas.historygreatests.ui.chapters
 
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,8 @@ class ChapterListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = chapters[position]
         holder.itemView.name.text = item.title
+        holder.itemView.description.text = item.description
+        holder.itemView.colored_background.setBackgroundColor(Color.parseColor(item.imageColor))
         holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
         holder.itemView.setOnClickListener {
