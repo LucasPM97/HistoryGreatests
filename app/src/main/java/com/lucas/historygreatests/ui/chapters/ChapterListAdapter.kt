@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Chapter
+import com.lucas.historygreatests.ui.home.HomeFragmentDirections
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_chapter_item.view.*
 import kotlinx.android.synthetic.main.fragment_chapter_item.view.root_view
@@ -34,7 +36,10 @@ class ChapterListAdapter(
         holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
         holder.itemView.setOnClickListener {
-            //TODO: Add navigation to Chapter details
+            val action =
+                ChaptersFragmentDirections
+                    .actionNavigationChaptersToNavigationChaptersDetailed(item.chapter_id)
+            it?.findNavController()?.navigate(action)
         }
     }
 
