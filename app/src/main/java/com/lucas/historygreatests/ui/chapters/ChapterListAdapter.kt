@@ -42,7 +42,9 @@ class ChapterListAdapter(
                         item.chapter_id,
                         item.imageUrl,
                         item.title,
-                        item.imageColor
+                        item.imageColor,
+                        item.startYear,
+                        item.endYear
                     )
 
             it?.findNavController()?.navigate(action)

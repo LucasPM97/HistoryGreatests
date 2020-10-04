@@ -64,5 +64,12 @@
         <argument
             android:name="image_color"
             app:argType="string" />
+        <argument
+            android:name="start_year"
+            app:argType="string" />
+        <argument
+            android:name="end_year"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
