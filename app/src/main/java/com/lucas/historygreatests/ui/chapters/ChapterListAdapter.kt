@@ -38,7 +38,13 @@ class ChapterListAdapter(
         holder.itemView.setOnClickListener {
             val action =
                 ChaptersFragmentDirections
-                    .actionNavigationChaptersToNavigationChaptersDetailed(item.chapter_id)
+                    .actionNavigationChaptersToNavigationChaptersDetailed(
+                        item.chapter_id,
+                        item.imageUrl,
+                        item.title,
+                        item.imageColor
+                    )
+
             it?.findNavController()?.navigate(action)
         }
     }
