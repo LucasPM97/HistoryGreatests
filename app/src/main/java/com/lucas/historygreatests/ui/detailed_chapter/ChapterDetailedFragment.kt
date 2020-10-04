@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
-import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
@@ -28,6 +27,12 @@ class ChapterDetailedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ChapterDetailedViewModel::class.java)
+
+        toolbar.setNavigationOnClickListener {
+            activity?.let {
+                it.onBackPressed()
+            }
+        }
 
         addViewModelObservers()
         setupViewModel()
