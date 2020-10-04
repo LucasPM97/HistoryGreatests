@@ -8,7 +8,8 @@ class ChapterDetailedViewModel : ViewModel() {
 
     val chapter = MutableLiveData<Chapter>()
     val loading = MutableLiveData<Boolean>()
-    val errorLoading = MutableLiveData<Boolean>()
+    val errorLoading = MutableLiveData<String?>()
+    val canScroll = MutableLiveData<Boolean>()
 
 
     fun setup(args: ChapterDetailedFragmentArgs) {
@@ -25,7 +26,8 @@ class ChapterDetailedViewModel : ViewModel() {
 
     fun loadChapter(){
         loading.value = true
-        errorLoading.value = false
+        canScroll.value = false
+        errorLoading.value = null
 
         chapter.value?.let {
 
@@ -49,8 +51,10 @@ class ChapterDetailedViewModel : ViewModel() {
             )
         }
 
+        //errorLoading.value = "There's a new error"
 
         loading.value = false
+        canScroll.value = true
 
     }
 
