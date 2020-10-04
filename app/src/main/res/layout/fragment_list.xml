@@ -20,7 +20,7 @@
         android:id="@+id/text_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/topic_error_loading_message"
+        android:text="@string/generic_server_error_message"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

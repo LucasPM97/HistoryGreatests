@@ -2,15 +2,12 @@ package com.lucas.historygreatests.ui.detailed_chapter
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
 
-class ChapterDetailedViewModel : ViewModel() {
+class ChapterDetailedViewModel : BaseViewModel() {
 
     val chapter = MutableLiveData<Chapter>()
-    val loading = MutableLiveData<Boolean>()
-    val errorLoading = MutableLiveData<String?>()
-    val canScroll = MutableLiveData<Boolean>()
-
 
     fun setup(args: ChapterDetailedFragmentArgs) {
         chapter.value = Chapter(
@@ -26,9 +23,7 @@ class ChapterDetailedViewModel : ViewModel() {
 
     fun loadChapter(){
         loading.value = true
-        canScroll.value = false
-        errorLoading.value = null
-
+        errorLoading.value = false
         chapter.value?.let {
 
             chapter.value = Chapter(
@@ -51,11 +46,9 @@ class ChapterDetailedViewModel : ViewModel() {
             )
         }
 
-        //errorLoading.value = "There's a new error"
+        //errorLoading.value = true
 
         loading.value = false
-        canScroll.value = true
-
     }
 
 }

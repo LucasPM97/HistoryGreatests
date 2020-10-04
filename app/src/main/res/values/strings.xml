@@ -4,6 +4,6 @@
     <string name="title_trending">Trending</string>
     <string name="title_library">Library</string>
     <!-- Topics -->
-    <string name="topic_error_loading_message">Ups, we had problems trying to connect with the server. Please try again.</string>
+    <string name="generic_server_error_message">Ups, we had problems trying to connect with the server. Please try again.</string>
     <string name="chapter_loading_message">Loading</string>
 </resources>

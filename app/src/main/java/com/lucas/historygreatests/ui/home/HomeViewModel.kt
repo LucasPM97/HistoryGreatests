@@ -3,17 +3,16 @@ package com.lucas.historygreatests.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Topic
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
 
     val topics = MutableLiveData<List<Topic>>()
-    val loading = MutableLiveData<Boolean>()
-    val loadingError = MutableLiveData<Boolean>()
 
 
     fun loadTopics(){
-        loadingError.value = false
+        errorLoading.value = false
         loading.value = true
         val topic1 = Topic(topic_id="1",name = "Technology",imageUrl="https://www.imore.com/sites/imore.com/files/styles/large/public/field/image/2014/03/topic_iphone_2g.png")
         val topic2 = Topic(topic_id="2",name = "States",imageUrl="https://aiconica.net/previews/institution-icon-68.png")

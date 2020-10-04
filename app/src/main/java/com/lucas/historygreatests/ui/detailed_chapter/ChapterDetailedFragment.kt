@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
@@ -41,18 +42,21 @@ class ChapterDetailedFragment : Fragment() {
             body.text = it.body
         })
         viewModel.loading.observe(this, {
-            body.visibility = if (it) View.GONE else View.VISIBLE
-            progress_bar.visibility = if (it) View.VISIBLE else View.GONE
+            //TODO: Test loading Dialog
+            /*if (it){
+                context?.let { context ->
+                    LoadingFullDialog.showLoadingDialog(context)
+                }
+            }
+            else{
+                LoadingFullDialog.dissmisLoadingDialog()
+            }*/
+
         })
 
         viewModel.errorLoading.observe(this, {
-            text_error.visibility = if (it != null) View.VISIBLE else View.GONE
-            text_error.text = it ?: ""
-        })
-
-        viewModel.canScroll.observe(this,{
-            scrollView.setScrollable(it)
-            //TODO: Handle Collapsing Layout
+            body.visibility = if (it) View.GONE else View.VISIBLE
+            text_error.visibility = if (it) View.VISIBLE else View.GONE
         })
     }
 
