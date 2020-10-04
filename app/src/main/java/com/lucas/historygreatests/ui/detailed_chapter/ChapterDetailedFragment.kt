@@ -28,7 +28,7 @@ class ChapterDetailedFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ChapterDetailedViewModel::class.java)
         addViewModelObservers()
         setupViewModel()
-
+        viewModel.loadChapter()
     }
 
 
@@ -36,6 +36,7 @@ class ChapterDetailedFragment : Fragment() {
         viewModel.chapter.observe(this, {
             collapseable_toolbar.title = it.title
             app_bar_image.loadFromUrl(it.imageUrl)
+            body.text = it.body
         })
     }
 
