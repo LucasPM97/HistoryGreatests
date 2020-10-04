@@ -46,12 +46,15 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
     <TextView
         android:id="@+id/body"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:textColor="@color/colorPrimary"/>
     </androidx.core.widget.NestedScrollView>
 
 
