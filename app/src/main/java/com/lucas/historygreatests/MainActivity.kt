@@ -1,9 +1,11 @@
 package com.lucas.historygreatests
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -33,9 +40,13 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(bottomNavigationScreensIds.contains(destination.id)) {
                 nav_view.visibility = View.VISIBLE
+                supportActionBar?.hide()
             } else {
                 nav_view.visibility = View.GONE
+                supportActionBar?.show()
             }
         }
     }
+
+
 }

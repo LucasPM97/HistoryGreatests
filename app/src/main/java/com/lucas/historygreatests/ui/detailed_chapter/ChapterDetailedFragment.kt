@@ -1,15 +1,16 @@
 package com.lucas.historygreatests.ui.detailed_chapter
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
+
 
 class ChapterDetailedFragment : Fragment() {
 
@@ -26,6 +27,7 @@ class ChapterDetailedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ChapterDetailedViewModel::class.java)
+
         addViewModelObservers()
         setupViewModel()
         viewModel.loadChapter()
@@ -34,9 +36,23 @@ class ChapterDetailedFragment : Fragment() {
 
     private fun addViewModelObservers() {
         viewModel.chapter.observe(this, {
-            collapseable_toolbar.title = it.title
+            collapsing_toolbar.title = it.title
             app_bar_image.loadFromUrl(it.imageUrl)
             body.text = it.body
+        })
+        viewModel.loading.observe(this, {
+            body.visibility = if (it) View.GONE else View.VISIBLE
+            progress_bar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.errorLoading.observe(this, {
+            text_error.visibility = if (it != null) View.VISIBLE else View.GONE
+            text_error.text = it ?: ""
+        })
+
+        viewModel.canScroll.observe(this,{
+            scrollView.setScrollable(it)
+            //TODO: Handle Collapsing Layout
         })
     }
 
