@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.loadingError.observe(this,{error ->
+        viewModel.errorLoading.observe(this,{error ->
             text_error.visibility = if(error) View.VISIBLE else View.GONE
         })
     }
