@@ -5,10 +5,10 @@ import java.time.LocalDate
 data class Chapter(
     val chapter_id:String,
     val title:String,
-    val description:String,
+    val description:String?,
     val imageUrl:String,
-    val imageColor:String ="#CDCDCB",
+    val imageColor:String,
     val body:String = "",
-    val startYear: LocalDate,
-    val endYear: LocalDate,
+    val startYear: String,
+    val endYear: String,
 )
