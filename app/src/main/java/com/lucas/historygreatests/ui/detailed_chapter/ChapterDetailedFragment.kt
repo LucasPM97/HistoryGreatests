@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.utils.loadFromUrl
+import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
 class ChapterDetailedFragment : Fragment() {
 
@@ -24,7 +26,20 @@ class ChapterDetailedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ChapterDetailedViewModel::class.java)
-        // TODO: Use the ViewModel
+        addViewModelObservers()
+        setupViewModel()
+
     }
 
+
+    private fun addViewModelObservers() {
+        viewModel.chapter.observe(this, {
+            collapseable_toolbar.title = it.title
+            app_bar_image.loadFromUrl(it.imageUrl)
+        })
+    }
+
+    private fun setupViewModel() {
+        viewModel.setup(args)
+    }
 }
