@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
 
 class ChapterDetailedFragment : Fragment() {
 
     private lateinit var viewModel: ChapterDetailedViewModel
+    val args: ChapterDetailedFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
