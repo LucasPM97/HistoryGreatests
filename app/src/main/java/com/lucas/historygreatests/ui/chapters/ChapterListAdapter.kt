@@ -27,28 +27,31 @@ class ChapterListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = chapters[position]
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            holder.itemView.root_view.clipToOutline = true
-        }
-        holder.itemView.name.text = item.title
-        holder.itemView.description.text = item.description
-        holder.itemView.colored_background.setBackgroundColor(Color.parseColor(item.imageColor))
-        holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
-        holder.itemView.setOnClickListener {
-            val action =
-                ChaptersFragmentDirections
-                    .actionNavigationChaptersToNavigationChaptersDetailed(
-                        item.chapter_id,
-                        item.imageUrl,
-                        item.title,
-                        item.imageColor,
-                        item.startYear,
-                        item.endYear
-                    )
+        holder.itemView.apply {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                root_view.clipToOutline = true
+            }
+            name.text = item.title
+            description.text = item.description
+            colored_background.setBackgroundColor(Color.parseColor(item.imageColor))
+            image.loadFromUrl(item.imageUrl.toString())
+            setOnClickListener {
+                val action =
+                    ChaptersFragmentDirections
+                        .actionNavigationChaptersToNavigationChaptersDetailed(
+                            item.chapter_id,
+                            item.imageUrl,
+                            item.title,
+                            item.imageColor,
+                            item.startYear,
+                            item.endYear
+                        )
 
-            it?.findNavController()?.navigate(action)
+                it?.findNavController()?.navigate(action)
+            }
         }
+
     }
 
     override fun getItemCount(): Int = chapters.size
