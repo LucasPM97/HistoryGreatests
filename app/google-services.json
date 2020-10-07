@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "297721332314",
+    "firebase_url": "https://greatests-dev.firebaseio.com",
+    "project_id": "greatests-dev",
+    "storage_bucket": "greatests-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297721332314:android:eb61cd868f8690b9854e63",
+        "android_client_info": {
+          "package_name": "com.lucas.historygreatests"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297721332314-aon0l0m8t6jksfvc1l0fkia1c2mgpsho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lucas.historygreatests",
+            "certificate_hash": "464f944f963a98f997c795aee3df3d8e4c89bd5d"
+          }
+        },
+        {
+          "client_id": "297721332314-j66ab6fajsv8td5dloc24fllrmhout2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYDyO3IVAK71ouELxMSTEsI1iUf3716WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297721332314-j66ab6fajsv8td5dloc24fllrmhout2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
