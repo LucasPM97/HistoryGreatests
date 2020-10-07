@@ -22,17 +22,20 @@ class BookListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = books[position]
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            holder.itemView.root_view.clipToOutline = true
-        }
-        holder.itemView.name.text = item.name
-        holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
-        holder.itemView.setOnClickListener {
-            val action =
-                BookFragmentDirections
-                    .actionNavigationBooksToNavigationChapters(item.book_id)
-            it?.findNavController()?.navigate(action)
+        holder.itemView.apply {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                root_view.clipToOutline = true
+            }
+            name.text = item.name
+            image.loadFromUrl(item.imageUrl.toString())
+
+            setOnClickListener {
+                val action =
+                    BookFragmentDirections
+                        .actionNavigationBooksToNavigationChapters(item.book_id)
+                it?.findNavController()?.navigate(action)
+            }
         }
     }
 

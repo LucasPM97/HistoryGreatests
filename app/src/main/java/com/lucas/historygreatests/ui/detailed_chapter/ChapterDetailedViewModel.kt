@@ -10,15 +10,18 @@ class ChapterDetailedViewModel : BaseViewModel() {
     val chapter = MutableLiveData<Chapter>()
 
     fun setup(args: ChapterDetailedFragmentArgs) {
-        chapter.value = Chapter(
-            chapter_id= args.chapterId,
-            title= args.title,
-            description = "",
-            imageUrl = args.imageUrl,
-            imageColor= args.imageColor,
-            startYear= args.startYear,
-            endYear= args.endYear ?: "",
-        )
+        args.apply {
+            chapter.value = Chapter(
+                chapter_id= chapterId,
+                title= title,
+                description = "",
+                imageUrl = imageUrl,
+                imageColor= imageColor,
+                startYear= startYear,
+                endYear= endYear ?: "",
+            )
+        }
+
     }
 
     fun loadChapter(){
