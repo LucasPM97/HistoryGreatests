@@ -1,21 +1,16 @@
 package com.lucas.historygreatests.ui.books
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Book
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-class BooksViewModel: ViewModel() {
+class BooksViewModel: BaseViewModel() {
 
     val books = MutableLiveData<List<Book>>()
-    val loading = MutableLiveData<Boolean>()
-    val loadingError = MutableLiveData<Boolean>()
 
 
     fun loadBooks(){
-        loadingError.value = false
+        errorLoading.value = false
         loading.value = true
         val book1 = Book(
                 book_id= "1",
