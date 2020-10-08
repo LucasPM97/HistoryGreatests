@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.UserViewModel
+import com.lucas.historygreatests.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
     private val topicListAdapter = TopicListAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -22,8 +25,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
         viewModel.loadTopics()
 
@@ -36,13 +37,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun implementObservers() {
-        viewModel.topics.observe(this, Observer { topics ->
+        viewModel.topics.observe(viewLifecycleOwner, Observer { topics ->
             topics?.let{
                 topicListAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(this,{error ->
+        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
             text_error.visibility = if(error) View.VISIBLE else View.GONE
         })
     }

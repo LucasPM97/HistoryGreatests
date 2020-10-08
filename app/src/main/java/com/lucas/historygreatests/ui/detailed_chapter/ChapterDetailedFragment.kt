@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
 
 class ChapterDetailedFragment : Fragment() {
 
-    private lateinit var viewModel: ChapterDetailedViewModel
+    private val viewModel: ChapterDetailedViewModel by viewModels()
     val args: ChapterDetailedFragmentArgs by navArgs()
+
+    private lateinit var loadingDialog: LoadingFullDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +29,6 @@ class ChapterDetailedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ChapterDetailedViewModel::class.java)
 
         toolbar.setNavigationOnClickListener {
             activity?.let {
@@ -41,12 +43,12 @@ class ChapterDetailedFragment : Fragment() {
 
 
     private fun addViewModelObservers() {
-        viewModel.chapter.observe(this, {
+        viewModel.chapter.observe(viewLifecycleOwner, {
             collapsing_toolbar.title = it.title
             app_bar_image.loadFromUrl(it.imageUrl)
             body.text = it.body
         })
-        viewModel.loading.observe(this, {
+        viewModel.loading.observe(viewLifecycleOwner, {
             //TODO: Test loading Dialog
             /*if (it){
                 context?.let { context ->
@@ -59,7 +61,7 @@ class ChapterDetailedFragment : Fragment() {
 
         })
 
-        viewModel.errorLoading.observe(this, {
+        viewModel.errorLoading.observe(viewLifecycleOwner, {
             body.visibility = if (it) View.GONE else View.VISIBLE
             text_error.visibility = if (it) View.VISIBLE else View.GONE
         })
