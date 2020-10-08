@@ -10,5 +10,5 @@ data class Chapter(
     val imageColor:String,
     val body:String = "",
     val startYear: String,
-    val endYear: String,
+    val endYear: String?,
 )

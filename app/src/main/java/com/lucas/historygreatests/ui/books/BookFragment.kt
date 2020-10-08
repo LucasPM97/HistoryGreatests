@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
  */
 class BookFragment : Fragment() {
 
-    private lateinit var viewModel: BooksViewModel
+    private val viewModel: BooksViewModel by viewModels()
     private val listAdapter = BookListAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -29,8 +29,6 @@ class BookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
-
         viewModel.loadBooks()
 
         recycler_view.apply {
@@ -41,13 +39,13 @@ class BookFragment : Fragment() {
     }
 
     private fun implementObservers() {
-        viewModel.books.observe(this, Observer { books ->
+        viewModel.books.observe(viewLifecycleOwner, Observer { books ->
             books?.let{
                 listAdapter.updateList(it);
             }
         })
 
-        viewModel.loadingError.observe(this,{error ->
+        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
             text_error.visibility = if(error) View.VISIBLE else View.GONE
         })
     }
