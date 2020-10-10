@@ -1,17 +1,13 @@
 package com.lucas.historygreatests
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.lucas.historygreatests.utils.AnalyticsSender
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +33,18 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         nav_view.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { navController, destination, _ ->
+
+            navController.previousBackStackEntry?.let {
+                if(!it.destination?.label.toString().equals(getString(R.string.screen_name_main))!!){
+                    AnalyticsSender.trackNavigation(
+                        from = it.destination?.label.toString(),
+                        to = destination?.label.toString()
+                    )
+                }
+            }
+
+            //AnalyticsSender.trackNavigation()
             if(bottomNavigationScreensIds.contains(destination.id)) {
                 nav_view.visibility = View.VISIBLE
                 supportActionBar?.hide()
