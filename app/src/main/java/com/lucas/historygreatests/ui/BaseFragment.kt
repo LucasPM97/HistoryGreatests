@@ -40,7 +40,7 @@ open class BaseFragment : Fragment() {
         val navController = findNavController()
         userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
             if (user == null) {
-                navController.navigate(R.id.loginFragment)
+                navController.navigate(R.id.navigation_login)
             }
         })
     }
