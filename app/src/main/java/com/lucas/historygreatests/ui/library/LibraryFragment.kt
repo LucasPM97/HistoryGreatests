@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.ui.BaseFragment
 
-class LibraryFragment : Fragment() {
+class LibraryFragment : BaseFragment() {
 
     private val viewModel: LibraryViewModel by viewModels()
 
