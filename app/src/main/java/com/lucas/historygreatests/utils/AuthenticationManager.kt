@@ -1,7 +1,9 @@
 package com.lucas.historygreatests.utils
 
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,17 +32,8 @@ class AuthenticationManager private constructor() {
             email = firebaseUser.email
         )
 
-        fun loginWithFirebaseGoogle(googleAuthCredential: AuthCredential): MutableLiveData<User> {
-            val authenticatedUserMutableLiveData = MutableLiveData<User>()
-            instance.firebaseAuth.signInWithCredential(googleAuthCredential).addOnCompleteListener{ authTask->
-                if (authTask.isSuccessful) {
-                    val isNewUser = authTask.result?.additionalUserInfo?.isNewUser
-                    getUser()?.let {
-                        authenticatedUserMutableLiveData.value = mapFirebaseUser(it)
-                    }
-                }
-            }
-            return authenticatedUserMutableLiveData
+        fun loginWithFirebaseGoogle(googleAuthCredential: AuthCredential): Task<AuthResult> {
+            return instance.firebaseAuth.signInWithCredential(googleAuthCredential)
         }
 
         fun logout() {
