@@ -6,6 +6,18 @@
     app:startDestination="@id/mainFragment">
 
     <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.lucas.historygreatests.ui.main.MainFragment"
+        android:label="@string/screen_name_main"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.lucas.historygreatests.ui.login.LoginFragment"
+        android:label="@string/screen_name_login"
+        tools:layout="@layout/login_fragment" />
+
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.lucas.historygreatests.ui.home.HomeFragment"
         android:label="@string/screen_name_home"
@@ -78,14 +90,4 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.lucas.historygreatests.ui.login.LoginFragment"
-        android:label="@string/screen_name_login"
-        tools:layout="@layout/login_fragment" />
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.lucas.historygreatests.ui.main.MainFragment"
-        android:label="@string/screen_name_main"
-        tools:layout="@layout/fragment_main" />
 </navigation>
