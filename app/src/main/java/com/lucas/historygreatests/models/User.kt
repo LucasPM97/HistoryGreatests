@@ -1,5 +1,7 @@
 package com.lucas.historygreatests.models
 
 data class User(
-    val name: String,
+    val uid: String,
+    val name: String?,
+    val email:String?
 )
