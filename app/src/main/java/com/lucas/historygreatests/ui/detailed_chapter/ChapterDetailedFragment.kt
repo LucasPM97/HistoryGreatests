@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.ui.BaseFragment
 import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
 
-class ChapterDetailedFragment : Fragment() {
+class ChapterDetailedFragment : BaseFragment() {
 
     private val viewModel: ChapterDetailedViewModel by viewModels()
     val args: ChapterDetailedFragmentArgs by navArgs()

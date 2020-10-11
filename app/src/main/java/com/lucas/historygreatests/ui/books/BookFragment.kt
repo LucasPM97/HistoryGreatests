@@ -9,12 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
  * A fragment representing a list of Items.
  */
-class BookFragment : Fragment() {
+class BookFragment : BaseFragment() {
 
     private val viewModel: BooksViewModel by viewModels()
     private val listAdapter = BookListAdapter(arrayListOf())
