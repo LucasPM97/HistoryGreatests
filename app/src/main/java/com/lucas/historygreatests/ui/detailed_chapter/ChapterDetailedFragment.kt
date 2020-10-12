@@ -34,8 +34,7 @@ class ChapterDetailedFragment : BaseFragment() {
 
         toolbar.setNavigationOnClickListener {
             activity?.let {
-                //it.onBackPressed()
-                AuthenticationManager.logout()
+                it.onBackPressed()
             }
         }
 
