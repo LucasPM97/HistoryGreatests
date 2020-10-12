@@ -1,7 +1,11 @@
 package com.lucas.historygreatests
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.GoogleAuthProvider
 import com.lucas.historygreatests.models.User
 import com.lucas.historygreatests.utils.AuthenticationManager
@@ -9,10 +13,24 @@ import com.lucas.historygreatests.utils.AuthenticationManager
 class UserViewModel: ViewModel(){
 
     var user = MutableLiveData<User>()
+    var googleSignInClient = MutableLiveData<GoogleSignInClient>()
 
-    fun initViewModel (){
+    fun initViewModel (context:Context){
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        context?.let { context ->
+            googleSignInClient.value = GoogleSignIn.getClient(context, gso)
+        }
+        //Subscribe to Firebase AuthStateChange listener
         AuthenticationManager.authStateListener{
-            if(it.currentUser == null) user.value = null
+            if(it.currentUser == null) {
+                user.value = null
+                googleSignInClient.value?.signOut()
+            }
         }
     }
 
