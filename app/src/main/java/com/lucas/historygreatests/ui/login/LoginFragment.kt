@@ -28,7 +28,6 @@ class LoginFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
     private lateinit var savedStateHandle: SavedStateHandle
-    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,20 +47,7 @@ class LoginFragment : Fragment() {
             startSignIn()
         }
 
-        initGoogleSignInClient()
         setupViewModel()
-    }
-
-    private fun initGoogleSignInClient() {
-        // Configure Google Sign In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        context?.let { context ->
-            googleSignInClient = GoogleSignIn.getClient(context, gso)
-        }
     }
 
     private fun setupViewModel() {
@@ -80,13 +66,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun startSignIn() {
-        val signInIntent:Intent = googleSignInClient.signInIntent;
-        startActivityForResult(signInIntent, GOOGLE_SIGNUP_RC);
+        userViewModel.googleSignInClient.value?.let {
+            val signInIntent:Intent = it.signInIntent;
+            startActivityForResult(signInIntent, GOOGLE_SIGNUP_RC);
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode === GOOGLE_SIGNUP_RC) {
+        if (requestCode == GOOGLE_SIGNUP_RC) {
 
             try {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
