@@ -10,6 +10,12 @@ class UserViewModel: ViewModel(){
 
     var user = MutableLiveData<User>()
 
+    fun initViewModel (){
+        AuthenticationManager.authStateListener{
+            if(it.currentUser == null) user.value = null
+        }
+    }
+
     fun authenticateWithFirebase(googleTokenId: String?) {
         val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
         AuthenticationManager.loginWithFirebaseGoogle(googleAuthCredential).addOnCompleteListener { authTask->
@@ -22,7 +28,7 @@ class UserViewModel: ViewModel(){
         }
     }
 
-    fun logout() {
+    private fun logout() {
         user.value = null
         AuthenticationManager.logout()
     }

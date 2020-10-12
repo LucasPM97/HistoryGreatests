@@ -13,7 +13,7 @@ import com.lucas.historygreatests.ui.login.LoginFragment
 
 open class BaseFragment : Fragment() {
 
-    val userViewModel: UserViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +24,14 @@ open class BaseFragment : Fragment() {
         val currentBackStackEntry = navController.currentBackStackEntry!!
         val savedStateHandle = currentBackStackEntry.savedStateHandle
         savedStateHandle.getLiveData<Boolean>(LoginFragment.LOGIN_SUCCESSFUL).observe(currentBackStackEntry, Observer { success ->
-                if (!success) {
-                    val startDestination = navController.graph.startDestination
-                    val navOptions = NavOptions.Builder()
-                        .setPopUpTo(startDestination, true)
-                        .build()
-                    navController.navigate(startDestination, null, navOptions)
-                }
-            })
+            if (!success) {
+                val startDestination = navController.graph.startDestination
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(startDestination, true)
+                    .build()
+                navController.navigate(startDestination, null, navOptions)
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
