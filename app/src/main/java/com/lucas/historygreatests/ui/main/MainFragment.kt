@@ -27,6 +27,8 @@ class MainFragment : Fragment() {
 
         val navController = findNavController()
 
+        userViewModel.initViewModel()
+
         if (userViewModel.isLogged()){
             navController.navigate(R.id.navigation_home)
         }

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.ui.BaseFragment
 import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
+import com.lucas.historygreatests.utils.AuthenticationManager
 import com.lucas.historygreatests.utils.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 class ChapterDetailedFragment : BaseFragment() {
 
     private val viewModel: ChapterDetailedViewModel by viewModels()
-    val args: ChapterDetailedFragmentArgs by navArgs()
+    private val args: ChapterDetailedFragmentArgs by navArgs()
 
     private lateinit var loadingDialog: LoadingFullDialog
 
@@ -33,7 +34,8 @@ class ChapterDetailedFragment : BaseFragment() {
 
         toolbar.setNavigationOnClickListener {
             activity?.let {
-                it.onBackPressed()
+                //it.onBackPressed()
+                AuthenticationManager.logout()
             }
         }
 
