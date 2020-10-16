@@ -1,4 +1,4 @@
-package com.lucas.historygreatests.utils
+package com.lucas.historygreatests.utils.extensions
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

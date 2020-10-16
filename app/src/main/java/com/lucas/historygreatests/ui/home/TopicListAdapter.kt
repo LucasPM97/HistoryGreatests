@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Topic
-import com.lucas.historygreatests.utils.loadFromUrl
+import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_topic_item.view.*
 
 class TopicListAdapter(
