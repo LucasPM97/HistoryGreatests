@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Book
-import com.lucas.historygreatests.utils.loadFromUrl
+import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_book_item.view.*
 
 class BookListAdapter(

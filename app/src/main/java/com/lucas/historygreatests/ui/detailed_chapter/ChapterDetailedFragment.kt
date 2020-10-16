@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.ui.BaseFragment
 import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
-import com.lucas.historygreatests.utils.AuthenticationManager
-import com.lucas.historygreatests.utils.loadFromUrl
+import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
 
