@@ -6,9 +6,10 @@ An Android project to look at important people and a resume of how they aport to
 ## Things to implement
 
 - [x]   Navigation
+- [x] Firebase Authentication
+- [x] Firebase Firestore
 - [ ] Shared Element transition
 - [ ] Data binding
-- [ ] Firebase
 - [ ] RxJava
 - [ ] Room
 - [ ] Text to speech
