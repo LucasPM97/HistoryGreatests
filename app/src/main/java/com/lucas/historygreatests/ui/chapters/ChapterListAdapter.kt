@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.ui.home.HomeFragmentDirections
-import com.lucas.historygreatests.utils.loadFromUrl
+import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_chapter_item.view.*
 import kotlinx.android.synthetic.main.fragment_chapter_item.view.root_view
 import kotlinx.android.synthetic.main.fragment_topic_item.view.image
