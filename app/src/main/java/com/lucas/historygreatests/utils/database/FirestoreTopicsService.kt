@@ -5,7 +5,7 @@ import com.lucas.historygreatests.utils.extensions.get
 
 class FirestoreTopicsService: FirestoreDatabase() {
 
-    fun getTopics(callback: FirestoreCallback<List<Topic>>) {
+    fun getHomeTopics(callback: FirestoreCallback<List<Topic>>) {
         db.collection(FirestoreConstants.Topics.COLLECTION)
             .orderBy(FirestoreConstants.Topics.Indexes.VIEWS)
             .get(callback)

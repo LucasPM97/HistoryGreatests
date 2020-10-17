@@ -15,7 +15,7 @@ class ChaptersViewModel: BaseViewModel() {
         errorLoading.value = false
         loading.value = true
 
-        firestoreService.getChapters(chapterId,object : FirestoreCallback<List<Chapter>> {
+        firestoreService.getChaptersByBookId(chapterId,object : FirestoreCallback<List<Chapter>> {
             override fun onSuccess(result: List<Chapter>?) {
                 chapters.value = result
             }
