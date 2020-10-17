@@ -38,7 +38,7 @@ class ChapterDetailedFragment : BaseFragment() {
 
         addViewModelObservers()
         setupViewModel()
-        viewModel.loadChapter()
+        viewModel.loadChapter(args.chapterId)
     }
 
 
