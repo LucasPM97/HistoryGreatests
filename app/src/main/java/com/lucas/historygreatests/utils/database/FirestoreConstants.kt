@@ -11,4 +11,16 @@ object FirestoreConstants {
         }
     }
 
+    object Chapters{
+        const val COLLECTION = "chapters"
+
+        object QueryParams {
+            const val BOOK_ID = "book_id"
+        }
+
+        object Indexes {
+            const val ORDER = "order"
+        }
+    }
+
 }
