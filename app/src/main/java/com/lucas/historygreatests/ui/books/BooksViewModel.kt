@@ -3,41 +3,37 @@ package com.lucas.historygreatests.ui.books
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Book
+import com.lucas.historygreatests.models.Topic
+import com.lucas.historygreatests.utils.database.FirestoreBooksService
+import com.lucas.historygreatests.utils.database.FirestoreCallback
+import com.lucas.historygreatests.utils.database.FirestoreTopicsService
+import java.lang.Exception
 
 class BooksViewModel: BaseViewModel() {
 
     val books = MutableLiveData<List<Book>>()
 
+    private val firestoreService = FirestoreBooksService()
 
-    fun loadBooks(){
+    fun loadBooks(topicId:String){
         errorLoading.value = false
         loading.value = true
-        val book1 = Book(
-                book_id= "1",
-                name = "Technology",
-                imageUrl="https://www.imore.com/sites/imore.com/files/styles/large/public/field/image/2014/03/topic_iphone_2g.png",
-                startYear = "2020",
-                endYear = "2020"
-            )
-            val book2 = Book(
-                book_id="2",
-                name = "States",
-                imageUrl="https://aiconica.net/previews/institution-icon-68.png",
-                startYear = "2020",
-                endYear = "2020"
-            )
-            val book3 = Book(
-                book_id="3",
-                name = "Me",
-                imageUrl="https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824147_960_720.png",
-                startYear = "2020",
-                endYear = "2020"
-            )
 
-            books.value = listOf(
-                book1,book2,book3
-            )
+        firestoreService.getBooks(topicId, object : FirestoreCallback<List<Book>> {
+            override fun onSuccess(result: List<Book>?) {
+                books.value = result
+            }
 
-        loading.value = false
+            override fun onFailed(exception: Exception) {
+                errorLoading.value = true
+            }
+
+            override fun onCompleted() {
+                loading.value = false
+            }
+
+        })
     }
+
+
 }

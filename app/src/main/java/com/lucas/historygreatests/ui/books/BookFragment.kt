@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.ui.BaseFragment
+import com.lucas.historygreatests.ui.detailed_chapter.ChapterDetailedFragmentArgs
 import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
@@ -19,6 +21,8 @@ class BookFragment : BaseFragment() {
 
     private val viewModel: BooksViewModel by viewModels()
     private val listAdapter = BookListAdapter(arrayListOf())
+
+    private val args: BookFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +34,7 @@ class BookFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadBooks()
+        viewModel.loadBooks(args.topicId)
 
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
