@@ -6,12 +6,12 @@ import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.database.FirestoreCallback
 import com.lucas.historygreatests.utils.database.FirestoreChaptersService
 
-class ChaptersViewModel: BaseViewModel() {
+class ChaptersViewModel: BaseViewModel(),IChaptersViewModel {
 
-    val chapters = MutableLiveData<List<Chapter>>()
-    private val firestoreService = FirestoreChaptersService()
+    override val chapters = MutableLiveData<List<Chapter>>()
+    override val firestoreService = FirestoreChaptersService()
 
-    fun loadChapters(chapterId:String){
+    override fun loadChapters(chapterId:String){
         errorLoading.value = false
         loading.value = true
 
