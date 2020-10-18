@@ -7,13 +7,13 @@ import com.lucas.historygreatests.utils.database.FirestoreBooksService
 import com.lucas.historygreatests.utils.database.FirestoreCallback
 import java.lang.Exception
 
-class BooksViewModel: BaseViewModel() {
+class BooksViewModel: BaseViewModel(), IBooksViewModel {
 
-    val books = MutableLiveData<List<Book>>()
+    override val books = MutableLiveData<List<Book>>()
 
-    private val firestoreService = FirestoreBooksService()
+    override val firestoreService = FirestoreBooksService()
 
-    fun loadBooks(topicId:String){
+    override fun loadBooks(topicId:String){
         errorLoading.value = false
         loading.value = true
 
