@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Topic
 import com.lucas.historygreatests.utils.database.FirestoreCallback
-import com.lucas.historygreatests.utils.database.FirestoreTopicsService
+import com.lucas.historygreatests.utils.database.topics.FirestoreTopicsService
 import java.lang.Exception
 
 class HomeViewModel : BaseViewModel(), IHomeViewModel {
