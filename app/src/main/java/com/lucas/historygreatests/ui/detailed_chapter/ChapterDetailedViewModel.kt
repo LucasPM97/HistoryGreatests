@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.database.FirestoreCallback
-import com.lucas.historygreatests.utils.database.FirestoreChaptersService
+import com.lucas.historygreatests.utils.database.chapters.FirestoreChaptersService
 
 class ChapterDetailedViewModel : BaseViewModel() {
 
