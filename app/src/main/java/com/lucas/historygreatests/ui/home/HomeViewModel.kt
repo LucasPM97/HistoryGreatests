@@ -17,7 +17,7 @@ class HomeViewModel : BaseViewModel() {
         errorLoading.value = false
         loading.value = true
 
-        firestoreService.getTopics(object : FirestoreCallback<List<Topic>> {
+        firestoreService.getHomeTopics(object : FirestoreCallback<List<Topic>> {
             override fun onSuccess(result: List<Topic>?) {
                 topics.value = result
             }
