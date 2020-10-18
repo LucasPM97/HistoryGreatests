@@ -3,8 +3,9 @@ package com.lucas.historygreatests.ui.books
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Book
-import com.lucas.historygreatests.utils.database.FirestoreBooksService
+import com.lucas.historygreatests.utils.database.books.FirestoreBooksService
 import com.lucas.historygreatests.utils.database.FirestoreCallback
+import com.lucas.historygreatests.utils.database.books.IFirestoreBooksService
 import java.lang.Exception
 
 class BooksViewModel: BaseViewModel(), IBooksViewModel {
