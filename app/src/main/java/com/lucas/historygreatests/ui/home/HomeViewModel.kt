@@ -7,13 +7,13 @@ import com.lucas.historygreatests.utils.database.FirestoreCallback
 import com.lucas.historygreatests.utils.database.FirestoreTopicsService
 import java.lang.Exception
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel : BaseViewModel(), IHomeViewModel {
 
-    val topics = MutableLiveData<List<Topic>>()
+    override val topics:MutableLiveData<List<Topic>> = MutableLiveData<List<Topic>>()
 
-    private val firestoreService = FirestoreTopicsService()
+    override val firestoreService = FirestoreTopicsService()
 
-    fun loadTopics(){
+    override fun loadTopics(){
         errorLoading.value = false
         loading.value = true
 
