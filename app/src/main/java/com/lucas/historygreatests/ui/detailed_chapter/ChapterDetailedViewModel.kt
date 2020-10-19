@@ -6,12 +6,12 @@ import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.database.FirestoreCallback
 import com.lucas.historygreatests.utils.database.chapters.FirestoreChaptersService
 
-class ChapterDetailedViewModel : BaseViewModel() {
+class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
 
-    val chapter = MutableLiveData<Chapter>()
-    private val firestoreService = FirestoreChaptersService()
+    override val chapter = MutableLiveData<Chapter>()
+    override val firestoreService = FirestoreChaptersService()
 
-    fun setup(args: ChapterDetailedFragmentArgs) {
+    override fun setup(args: ChapterDetailedFragmentArgs) {
         args.apply {
             chapter.value = Chapter(
                 chapter_id= chapterId,
@@ -26,7 +26,7 @@ class ChapterDetailedViewModel : BaseViewModel() {
 
     }
 
-    fun loadChapter(chapterId:String){
+    override fun loadChapter(chapterId:String){
         errorLoading.value = false
         loading.value = true
 
