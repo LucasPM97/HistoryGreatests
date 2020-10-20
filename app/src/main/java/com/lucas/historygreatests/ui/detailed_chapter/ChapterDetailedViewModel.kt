@@ -32,7 +32,11 @@ class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
 
         firestoreService.getDetailedChapterById(chapterId,object : FirestoreCallback<Chapter> {
             override fun onSuccess(result: Chapter?) {
-                chapter.value = result
+                if (result != null)
+                    chapter.value = result
+                else
+                    errorLoading.value = true
+
             }
 
             override fun onFailed(exception: Exception) {

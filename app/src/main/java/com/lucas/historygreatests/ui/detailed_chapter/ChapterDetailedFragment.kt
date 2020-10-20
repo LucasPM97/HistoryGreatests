@@ -18,7 +18,6 @@ class ChapterDetailedFragment : BaseFragment() {
     private val viewModel: ChapterDetailedViewModel by viewModels()
     private val args: ChapterDetailedFragmentArgs by navArgs()
 
-    private lateinit var loadingDialog: LoadingFullDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,21 +42,16 @@ class ChapterDetailedFragment : BaseFragment() {
 
 
     private fun addViewModelObservers() {
-        viewModel.chapter.observe(viewLifecycleOwner, {
-            collapsing_toolbar.title = it.title
-            app_bar_image.loadFromUrl(it.imageUrl)
-            body.text = it.body
+        viewModel.chapter.observe(viewLifecycleOwner, {chapter ->
+            collapsing_toolbar.title = chapter.title
+            app_bar_image.loadFromUrl(chapter.imageUrl)
+            body.text = chapter.body
         })
         viewModel.loading.observe(viewLifecycleOwner, {
-            //TODO: Test loading Dialog
-            /*if (it){
-                context?.let { context ->
-                    LoadingFullDialog.showLoadingDialog(context)
-                }
-            }
-            else{
-                LoadingFullDialog.dissmisLoadingDialog()
-            }*/
+            if (it)
+                showLoadingDialog()
+            else
+                dismissLoadingDialog()
 
         })
 

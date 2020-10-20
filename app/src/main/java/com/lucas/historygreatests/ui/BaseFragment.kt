@@ -9,11 +9,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.UserViewModel
+import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.ui.login.LoginFragment
 
 open class BaseFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
+    private lateinit var loadingDialog: LoadingFullDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,22 @@ open class BaseFragment : Fragment() {
                 navController.navigate(R.id.navigation_login)
             }
         })
+    }
+
+    fun showLoadingDialog(){
+        if (!this::loadingDialog.isInitialized) {
+            loadingDialog = LoadingFullDialog(requireContext())
+        }
+        loadingDialog.show()
+    }
+
+    fun dismissLoadingDialog(){
+        if (!this::loadingDialog.isInitialized){
+            loadingDialog?.let {
+                it.dismiss()
+            }
+        }
+
     }
 
 }
