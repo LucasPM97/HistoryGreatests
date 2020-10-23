@@ -19,7 +19,7 @@ import com.lucas.historygreatests.UserViewModel
 import kotlinx.android.synthetic.main.login_fragment.*
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.login_fragment) {
 
     companion object {
         const val LOGIN_SUCCESSFUL: String = "LOGIN_SUCCESSFUL"
@@ -28,13 +28,6 @@ class LoginFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
     private lateinit var savedStateHandle: SavedStateHandle
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -18,19 +18,12 @@ import kotlinx.android.synthetic.main.fragment_list.*
 /**
  * A fragment representing a list of Items.
  */
-class ChaptersFragment : BaseFragment() {
+class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
 
     private val viewModel: ChaptersViewModel by viewModels()
     private val listAdapter = ChapterListAdapter(arrayListOf())
 
     private val args: ChaptersFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

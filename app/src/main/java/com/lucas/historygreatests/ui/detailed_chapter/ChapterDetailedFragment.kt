@@ -13,18 +13,11 @@ import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.chapter_detailed_fragment.*
 
 
-class ChapterDetailedFragment : BaseFragment() {
+class ChapterDetailedFragment : BaseFragment(R.layout.chapter_detailed_fragment) {
 
     private val viewModel: ChapterDetailedViewModel by viewModels()
     private val args: ChapterDetailedFragmentArgs by navArgs()
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.chapter_detailed_fragment, container, false)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

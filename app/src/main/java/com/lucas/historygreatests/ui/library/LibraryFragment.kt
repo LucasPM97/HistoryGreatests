@@ -10,21 +10,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.ui.BaseFragment
+import kotlinx.android.synthetic.main.fragment_library.*
 
-class LibraryFragment : BaseFragment() {
+class LibraryFragment : BaseFragment(R.layout.fragment_library) {
 
     private val viewModel: LibraryViewModel by viewModels()
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_library, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            text_notifications.text = it
         })
-        return root
     }
 }
