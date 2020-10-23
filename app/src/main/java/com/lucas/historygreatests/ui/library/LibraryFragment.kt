@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentLibraryBinding
 import com.lucas.historygreatests.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_library.*
 
@@ -19,8 +20,10 @@ class LibraryFragment : BaseFragment(R.layout.fragment_library) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val binding = FragmentLibraryBinding.bind(view)
+
         viewModel.text.observe(viewLifecycleOwner, Observer {
-            text_notifications.text = it
+            binding.textNotifications.text = it
         })
     }
 }
