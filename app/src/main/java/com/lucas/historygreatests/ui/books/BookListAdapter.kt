@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentBookItemBinding
 import com.lucas.historygreatests.models.Book
 import com.lucas.historygreatests.utils.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.fragment_book_item.view.*
@@ -23,14 +24,14 @@ class BookListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = books[position]
 
-        holder.itemView.apply {
+        holder.binding.apply {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                root_view.clipToOutline = true
+                rootView.clipToOutline = true
             }
             name.text = item.name
             image.loadFromUrl(item.imageUrl.toString())
 
-            setOnClickListener {
+            root.setOnClickListener {
                 val action =
                     BookFragmentDirections
                         .actionNavigationBooksToNavigationChapters(item.book_id)
@@ -46,5 +47,7 @@ class BookListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val binding = FragmentBookItemBinding.bind(view)
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentListBinding
 import com.lucas.historygreatests.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -20,12 +21,16 @@ class BookFragment : BaseFragment(R.layout.fragment_list) {
 
     private val args: BookFragmentArgs by navArgs()
 
+    private lateinit var viewBinding: FragmentListBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewBinding = FragmentListBinding.bind(view)
+
         viewModel.loadBooks(args.topicId)
 
-        recycler_view.apply {
+        viewBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }
@@ -41,7 +46,7 @@ class BookFragment : BaseFragment(R.layout.fragment_list) {
         })
 
         viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            text_error.visibility = if(error) View.VISIBLE else View.GONE
+            viewBinding.textError.visibility = if(error) View.VISIBLE else View.GONE
         })
     }
 
