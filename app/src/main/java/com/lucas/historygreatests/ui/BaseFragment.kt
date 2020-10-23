@@ -12,7 +12,7 @@ import com.lucas.historygreatests.UserViewModel
 import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.ui.login.LoginFragment
 
-open class BaseFragment : Fragment() {
+open class BaseFragment(resourceLayoutId:Int) : Fragment(resourceLayoutId) {
 
     private val userViewModel: UserViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingFullDialog
