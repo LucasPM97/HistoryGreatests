@@ -23,15 +23,15 @@ class TopicListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = topics[position]
 
-        holder.apply {
+        holder.binding.apply {
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                binding.rootView.clipToOutline = true
+                rootView.clipToOutline = true
             }
-            binding.name.text = item.name
-            binding.image.loadFromUrl(item.imageUrl.toString())
+            name.text = item.name
+            image.loadFromUrl(item.imageUrl.toString())
 
-            binding.root.setOnClickListener {
+            root.setOnClickListener {
 
                 val action = HomeFragmentDirections.actionNavigationHomeToNavigationBooks(item.topic_id)
                 it?.findNavController()?.navigate(action)
