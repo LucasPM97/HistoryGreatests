@@ -1,14 +1,14 @@
 package com.lucas.historygreatests.ui.home
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentTopicItemBinding
 import com.lucas.historygreatests.models.Topic
 import com.lucas.historygreatests.utils.extensions.loadFromUrl
-import kotlinx.android.synthetic.main.fragment_topic_item.view.*
 
 class TopicListAdapter(
     private var topics: List<Topic>
@@ -22,20 +22,21 @@ class TopicListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = topics[position]
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            holder.itemView.root_view.clipToOutline = true
-        }
-        holder.itemView.name.text = item.name
-        holder.itemView.image.loadFromUrl(item.imageUrl.toString())
 
-        holder.itemView.setOnClickListener {
-            val action =
-                HomeFragmentDirections
-                    .actionNavigationHomeToNavigationBooks(item.topic_id)
-            it?.findNavController()?.navigate(action)
-        }
+        holder.apply {
 
-        //holder.contentView.text = item.name
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                binding.rootView.clipToOutline = true
+            }
+            binding.name.text = item.name
+            binding.image.loadFromUrl(item.imageUrl.toString())
+
+            binding.root.setOnClickListener {
+
+                val action = HomeFragmentDirections.actionNavigationHomeToNavigationBooks(item.topic_id)
+                it?.findNavController()?.navigate(action)
+            }
+        }
     }
 
     override fun getItemCount(): Int = topics.size
@@ -45,5 +46,7 @@ class TopicListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val binding = FragmentTopicItemBinding.bind(view)
+    }
 }
