@@ -69,7 +69,7 @@
         android:id="@+id/navigation_chapters_detailed"
         android:name="com.lucas.historygreatests.ui.detailed_chapter.ChapterDetailedFragment"
         android:label="@string/screen_name_detailed_chapter"
-        tools:layout="@layout/chapter_detailed_fragment" >
+        tools:layout="@layout/fragment_chapter_detailed" >
         <argument
             android:name="chapter_id"
             app:argType="string" />
