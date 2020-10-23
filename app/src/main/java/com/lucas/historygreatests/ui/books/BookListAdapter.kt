@@ -1,15 +1,14 @@
 package com.lucas.historygreatests.ui.books
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.databinding.FragmentBookItemBinding
 import com.lucas.historygreatests.models.Book
 import com.lucas.historygreatests.utils.extensions.loadFromUrl
-import kotlinx.android.synthetic.main.fragment_book_item.view.*
 
 class BookListAdapter(
     private var books: List<Book>

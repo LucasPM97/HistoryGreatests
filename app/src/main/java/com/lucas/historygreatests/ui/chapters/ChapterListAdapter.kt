@@ -1,18 +1,15 @@
 package com.lucas.historygreatests.ui.chapters
 
 import android.graphics.Color
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentChapterItemBinding
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.utils.extensions.loadFromUrl
-import kotlinx.android.synthetic.main.fragment_chapter_item.view.*
-import kotlinx.android.synthetic.main.fragment_chapter_item.view.root_view
-import kotlinx.android.synthetic.main.fragment_topic_item.view.image
-import kotlinx.android.synthetic.main.fragment_topic_item.view.name
 
 class ChapterListAdapter(
     private var chapters: List<Chapter>
@@ -27,15 +24,15 @@ class ChapterListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = chapters[position]
 
-        holder.itemView.apply {
+        holder.binding.apply {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                root_view.clipToOutline = true
+                rootView.clipToOutline = true
             }
             name.text = item.title
             description.text = item.description
-            colored_background.setBackgroundColor(Color.parseColor(item.imageColor))
+            coloredBackground.setBackgroundColor(Color.parseColor(item.imageColor))
             image.loadFromUrl(item.imageUrl.toString())
-            setOnClickListener {
+            root.setOnClickListener {
                 val action =
                     ChaptersFragmentDirections
                         .actionNavigationChaptersToNavigationChaptersDetailed(
@@ -60,5 +57,7 @@ class ChapterListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val binding = FragmentChapterItemBinding.bind(view)
+    }
 }
