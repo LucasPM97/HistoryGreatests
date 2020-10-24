@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val bottomNavigationScreensIds = arrayOf(
+    private val bottomNavigationScreensIds = arrayOf(
         R.id.navigation_home,
         R.id.navigation_trending,
         R.id.navigation_library,
@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         nav_view.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { navController, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
 
             navController.previousBackStackEntry?.let {
-                if(!it.destination?.label.toString().equals(getString(R.string.screen_name_main))!!){
+                if(it.destination.label.toString() != getString(R.string.screen_name_main)){
                     AnalyticsSender.trackNavigation(
-                        from = it.destination?.label.toString(),
-                        to = destination?.label.toString()
+                        from = it.destination.label.toString(),
+                        to = destination.label.toString()
                     )
                 }
             }

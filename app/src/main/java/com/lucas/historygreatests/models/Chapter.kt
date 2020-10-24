@@ -7,7 +7,7 @@ data class Chapter(
     val title:String,
     val description:String?,
     val imageUrl:String,
-    val imageColor:String,
+    val imageColor: String,
     val body:String = "",
     val startYear: String,
     val endYear: String?,

@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.databinding.FragmentTopicItemBinding
 import com.lucas.historygreatests.models.Topic
-import com.lucas.historygreatests.utils.extensions.loadFromUrl
 
 class TopicListAdapter(
     private var topics: List<Topic>
@@ -14,7 +13,7 @@ class TopicListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentTopicItemBinding.inflate(inflater)
+        val binding = FragmentTopicItemBinding.inflate(inflater,parent,false)
         return ViewHolder(binding)
     }
 
@@ -27,22 +26,18 @@ class TopicListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: FragmentTopicItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: FragmentTopicItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(topic: Topic){
             binding.apply {
 
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        rootView.clipToOutline = true
-                    }
-                    name.text = topic.name
-                    image.loadFromUrl(topic.imageUrl.toString())
+                binding.topic = topic
 
-                    root.setOnClickListener {
+                root.setOnClickListener {
+                    val action = HomeFragmentDirections.actionNavigationHomeToNavigationBooks(topic.topic_id)
 
-                        val action = HomeFragmentDirections.actionNavigationHomeToNavigationBooks(topic.topic_id)
-                        it?.findNavController()?.navigate(action)
-                    }
+                    it?.findNavController()?.navigate(action)
+                }
             }
         }
     }

@@ -10,24 +10,22 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.lucas.historygreatests.models.User
 import com.lucas.historygreatests.utils.AuthenticationManager
 
-class UserViewModel: ViewModel(){
+class UserViewModel : ViewModel() {
 
     var user = MutableLiveData<User>()
     var googleSignInClient = MutableLiveData<GoogleSignInClient>()
 
-    fun initViewModel (context:Context){
+    fun initViewModel(context: Context) {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(context.getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        context?.let { context ->
-            googleSignInClient.value = GoogleSignIn.getClient(context, gso)
-        }
+        googleSignInClient.value = GoogleSignIn.getClient(context, gso)
         //Subscribe to Firebase AuthStateChange listener
-        AuthenticationManager.authStateListener{
-            if(it.currentUser == null) {
+        AuthenticationManager.authStateListener {
+            if (it.currentUser == null) {
                 user.value = null
                 googleSignInClient.value?.signOut()
             }
@@ -36,14 +34,15 @@ class UserViewModel: ViewModel(){
 
     fun authenticateWithFirebase(googleTokenId: String?) {
         val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
-        AuthenticationManager.loginWithFirebaseGoogle(googleAuthCredential).addOnCompleteListener { authTask->
-            if (authTask.isSuccessful) {
-                val isNewUser = authTask.result?.additionalUserInfo?.isNewUser
-                AuthenticationManager.getUser()?.let {
-                    user.value = AuthenticationManager.mapFirebaseUser(it)
+        AuthenticationManager.loginWithFirebaseGoogle(googleAuthCredential)
+            .addOnCompleteListener { authTask ->
+                if (authTask.isSuccessful) {
+                    val isNewUser = authTask.result?.additionalUserInfo?.isNewUser
+                    AuthenticationManager.getUser()?.let {
+                        user.value = AuthenticationManager.mapFirebaseUser(it)
+                    }
                 }
             }
-        }
     }
 
     private fun logout() {

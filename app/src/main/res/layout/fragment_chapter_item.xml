@@ -1,40 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root_view"
-    android:layout_width="match_parent"
-    android:layout_height="115dp"
-    style="@style/HorizontalLinearItemStyle">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="chapter"
+            type="com.lucas.historygreatests.models.Chapter" />
+    </data>
+
     <RelativeLayout
-        android:id="@+id/colored_background"
+        android:id="@+id/root_view"
+        style="@style/HorizontalLinearItemStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:scaleType="fitEnd"/>
-        <View
+        android:layout_height="115dp"
+        clipToOutline="@{true}">
+
+        <RelativeLayout
+            android:id="@+id/colored_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
-            android:alpha="0.44"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="15dp">
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
+            backgroundColor="@{chapter.imageColor}">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitEnd"
+                imageUrl="@{chapter.imageUrl}"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.44"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"/>
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@{chapter.title}"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{chapter.description}"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</layout>
