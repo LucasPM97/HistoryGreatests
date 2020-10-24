@@ -14,7 +14,7 @@ class BookListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentBookItemBinding.inflate(inflater)
+        val binding = FragmentBookItemBinding.inflate(inflater,parent,false)
         return ViewHolder(binding)
     }
 
@@ -31,11 +31,8 @@ class BookListAdapter(
 
         fun bind(book:Book){
             binding.apply {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    rootView.clipToOutline = true
-                }
-                name.text = book.name
-                image.loadFromUrl(book.imageUrl.toString())
+
+                binding.book = book
 
                 root.setOnClickListener {
                     val action =

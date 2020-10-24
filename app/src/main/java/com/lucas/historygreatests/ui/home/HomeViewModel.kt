@@ -19,7 +19,12 @@ class HomeViewModel : BaseViewModel(), IHomeViewModel {
 
         firestoreService.getHomeTopics(object : FirestoreCallback<List<Topic>> {
             override fun onSuccess(result: List<Topic>?) {
-                topics.value = result
+                //topics.value = result
+                topics.value = listOf(
+                    Topic(
+                        "id","Nmae","https://www.planm.com.ar/app/plugins/accelerated-mobile-pages/images/SD-default-image.png"
+                    )
+                )
             }
 
             override fun onFailed(exception: Exception) {

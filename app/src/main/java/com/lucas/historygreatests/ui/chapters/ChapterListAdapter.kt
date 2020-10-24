@@ -15,7 +15,7 @@ class ChapterListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentChapterItemBinding.inflate(inflater)
+        val binding = FragmentChapterItemBinding.inflate(inflater,parent,false)
         return ViewHolder(binding)
     }
 
@@ -32,13 +32,7 @@ class ChapterListAdapter(
 
         fun bind(chapter:Chapter){
             binding.apply {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    rootView.clipToOutline = true
-                }
-                name.text = chapter.title
-                description.text = chapter.description
-                coloredBackground.setBackgroundColor(Color.parseColor(chapter.imageColor))
-                image.loadFromUrl(chapter.imageUrl.toString())
+                binding.chapter = chapter
                 root.setOnClickListener {
                     onClick(chapter)
                 }
