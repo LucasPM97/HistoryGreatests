@@ -1,6 +1,5 @@
 package com.lucas.historygreatests.utils
 
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult

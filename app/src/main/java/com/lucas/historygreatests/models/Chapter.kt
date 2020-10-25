@@ -1,7 +1,5 @@
 package com.lucas.historygreatests.models
 
-import java.time.LocalDate
-
 data class Chapter(
     val chapter_id:String,
     val title:String,
