@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.databinding.FragmentBookItemBinding
 import com.lucas.historygreatests.models.Book
-import com.lucas.historygreatests.utils.extensions.loadFromUrl
 
 class BookListAdapter(
     private var books: List<Book>

@@ -1,13 +1,11 @@
 package com.lucas.historygreatests.ui.chapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.databinding.FragmentChapterItemBinding
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.utils.extensions.loadFromUrl
 
 class ChapterListAdapter(
     private var chapters: List<Chapter>
