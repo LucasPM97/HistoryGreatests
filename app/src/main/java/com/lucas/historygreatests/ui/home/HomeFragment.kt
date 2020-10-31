@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_list) {
 
         viewModel.loadTopics()
 
-        binding.recyclerView.apply{
+        binding.recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = topicListAdapter
         }
@@ -34,13 +34,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_list) {
 
     private fun implementObservers() {
         viewModel.topics.observe(viewLifecycleOwner, Observer { topics ->
-            topics?.let{
+            topics?.let {
                 topicListAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            binding.textError.visibility = if(error) View.VISIBLE else View.GONE
+        viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
+            binding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
     }
 }

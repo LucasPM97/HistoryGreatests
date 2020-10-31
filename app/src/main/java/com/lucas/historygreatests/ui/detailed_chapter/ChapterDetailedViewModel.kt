@@ -3,7 +3,8 @@ package com.lucas.historygreatests.ui.detailed_chapter
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.utils.database.FirestoreCallback
+import com.lucas.historygreatests.utils.database.FirestoreDocumentCallback
+import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
 import com.lucas.historygreatests.utils.database.chapters.FirestoreChaptersService
 
 class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
@@ -30,7 +31,7 @@ class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
         errorLoading.value = false
         loading.value = true
 
-        firestoreService.getDetailedChapterById(chapterId,object : FirestoreCallback<Chapter> {
+        firestoreService.getDetailedChapterById(chapterId,object : FirestoreDocumentCallback<Chapter> {
             override fun onSuccess(result: Chapter?) {
                 if (result != null)
                     chapter.value = result
