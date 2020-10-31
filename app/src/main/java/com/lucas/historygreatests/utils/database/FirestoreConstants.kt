@@ -2,7 +2,7 @@ package com.lucas.historygreatests.utils.database
 
 object FirestoreConstants {
 
-    object Topics{
+    object Topics {
         const val COLLECTION = "topics"
         const val BOOKS_SUBCOLLECTION = "books"
 
@@ -11,16 +11,16 @@ object FirestoreConstants {
         }
     }
 
-    object Books{
+    object Books {
         const val COLLECTION = "books"
         const val CHAPTER_SUBCOLLECTION = "chapters"
 
         object Indexes {
-            const val ORDER = "order"
+            const val CHAPTER_SUBCOLLECTION_ORDER = "order"
         }
     }
 
-    object Chapters{
+    object Chapters {
         const val COLLECTION = "chapters"
     }
 
