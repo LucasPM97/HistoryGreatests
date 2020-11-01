@@ -7,8 +7,10 @@ import androidx.databinding.BindingAdapter
 
 //ImageView
 @BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, url: String) {
-    view.loadFromUrl(url)
+fun loadImage(view: ImageView, url: String?) {
+    url?.let {
+        view.loadFromUrl(url)
+    }
 }
 
 //View
