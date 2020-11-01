@@ -55,7 +55,7 @@ open class BaseFragment(resourceLayoutId:Int) : Fragment(resourceLayoutId) {
     }
 
     fun dismissLoadingDialog(){
-        if (!this::loadingDialog.isInitialized){
+        if (this::loadingDialog.isInitialized){
             loadingDialog.let {
                 it.dismiss()
             }
