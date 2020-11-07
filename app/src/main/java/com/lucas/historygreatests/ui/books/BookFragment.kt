@@ -39,13 +39,13 @@ class BookFragment : BaseFragment(R.layout.fragment_list) {
 
     private fun implementObservers() {
         viewModel.books.observe(viewLifecycleOwner, Observer { books ->
-            books?.let{
+            books?.let {
                 listAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            viewBinding.textError.visibility = if(error) View.VISIBLE else View.GONE
+        viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
+            viewBinding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
     }
 
