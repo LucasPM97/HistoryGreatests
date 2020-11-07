@@ -8,19 +8,16 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.lucas.historygreatests.ui.main.MainFragment"
-        android:label="@string/screen_name_main"
         tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.lucas.historygreatests.ui.login.LoginFragment"
-        android:label="@string/screen_name_login"
         tools:layout="@layout/login_fragment" />
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.lucas.historygreatests.ui.home.HomeFragment"
-        android:label="@string/screen_name_home"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_books"
@@ -30,19 +27,16 @@
     <fragment
         android:id="@+id/navigation_trending"
         android:name="com.lucas.historygreatests.ui.trending.TrendingFragment"
-        android:label="@string/screen_name_trending"
         tools:layout="@layout/fragment_treading" />
 
     <fragment
         android:id="@+id/navigation_library"
         android:name="com.lucas.historygreatests.ui.library.LibraryFragment"
-        android:label="@string/screen_name_library_list"
         tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/navigation_books"
         android:name="com.lucas.historygreatests.ui.books.BookFragment"
-        android:label="@string/screen_name_book_list"
         tools:layout="@layout/fragment_list" >
         <argument
             android:name="topic_id"
@@ -55,7 +49,6 @@
     <fragment
         android:id="@+id/navigation_chapters"
         android:name="com.lucas.historygreatests.ui.chapters.ChaptersFragment"
-        android:label="@string/screen_name_chapter_list"
         tools:layout="@layout/fragment_list" >
         <argument
             android:name="book_id"
@@ -68,7 +61,6 @@
     <fragment
         android:id="@+id/navigation_chapters_detailed"
         android:name="com.lucas.historygreatests.ui.detailed_chapter.ChapterDetailedFragment"
-        android:label="@string/screen_name_detailed_chapter"
         tools:layout="@layout/fragment_chapter_detailed" >
         <argument
             android:name="chapter_id"

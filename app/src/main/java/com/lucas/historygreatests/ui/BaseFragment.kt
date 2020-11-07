@@ -7,12 +7,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.lucas.historygreatests.MainActivity
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.UserViewModel
 import com.lucas.historygreatests.ui.components.views.LoadingFullDialog
 import com.lucas.historygreatests.ui.login.LoginFragment
 
-open class BaseFragment(resourceLayoutId:Int) : Fragment(resourceLayoutId) {
+open class BaseFragment(resourceLayoutId: Int) : Fragment(resourceLayoutId) {
 
     private val userViewModel: UserViewModel by activityViewModels()
     private lateinit var loadingDialog: LoadingFullDialog
@@ -20,20 +21,23 @@ open class BaseFragment(resourceLayoutId:Int) : Fragment(resourceLayoutId) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkIfLoginIsNeeded()
+    }
 
+    private fun checkIfLoginIsNeeded() {
         val navController = findNavController()
-
         val currentBackStackEntry = navController.currentBackStackEntry!!
         val savedStateHandle = currentBackStackEntry.savedStateHandle
-        savedStateHandle.getLiveData<Boolean>(LoginFragment.LOGIN_SUCCESSFUL).observe(currentBackStackEntry, Observer { success ->
-            if (!success) {
-                val startDestination = navController.graph.startDestination
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(startDestination, true)
-                    .build()
-                navController.navigate(startDestination, null, navOptions)
-            }
-        })
+        savedStateHandle.getLiveData<Boolean>(LoginFragment.LOGIN_SUCCESSFUL)
+            .observe(currentBackStackEntry, Observer { success ->
+                if (!success) {
+                    val startDestination = navController.graph.startDestination
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(startDestination, true)
+                        .build()
+                    navController.navigate(startDestination, null, navOptions)
+                }
+            })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,20 +51,26 @@ open class BaseFragment(resourceLayoutId:Int) : Fragment(resourceLayoutId) {
         })
     }
 
-    fun showLoadingDialog(){
+    fun showLoadingDialog() {
         if (!this::loadingDialog.isInitialized) {
             loadingDialog = LoadingFullDialog(requireContext())
         }
         loadingDialog.show()
     }
 
-    fun dismissLoadingDialog(){
-        if (this::loadingDialog.isInitialized){
+    fun dismissLoadingDialog() {
+        if (this::loadingDialog.isInitialized) {
             loadingDialog.let {
                 it.dismiss()
             }
         }
-
     }
+
+    fun setActivityToolbarVisibility (visible : Boolean){
+        if (activity is MainActivity){
+            (activity as MainActivity).setToolbarVisibility(visible)
+        }
+    }
+
 
 }

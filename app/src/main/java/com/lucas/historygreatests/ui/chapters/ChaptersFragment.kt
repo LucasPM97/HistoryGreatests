@@ -26,7 +26,6 @@ class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentListBinding.bind(view)
-
         viewModel.loadChapters(args.bookId)
 
         binding.recyclerView.apply {
@@ -38,13 +37,13 @@ class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
 
     private fun implementObservers() {
         viewModel.chapters.observe(viewLifecycleOwner, Observer { books ->
-            books?.let{
+            books?.let {
                 listAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            binding.textError.visibility = if(error) View.VISIBLE else View.GONE
+        viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
+            binding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
     }
 

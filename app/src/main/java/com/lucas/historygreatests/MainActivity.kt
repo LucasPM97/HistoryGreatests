@@ -22,16 +22,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setDisplayShowTitleEnabled(false)
-        }
-
-
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        nav_view.setupWithNavController(navController)
+        toolbar.setupWithNavController(navController)
+        bottom_nav_view.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
@@ -46,14 +41,18 @@ class MainActivity : AppCompatActivity() {
 
             //AnalyticsSender.trackNavigation()
             if(bottomNavigationScreensIds.contains(destination.id)) {
-                nav_view.visibility = View.VISIBLE
-                supportActionBar?.hide()
+                bottom_nav_view.visibility = View.VISIBLE
+                setToolbarVisibility(false)
+
             } else {
-                nav_view.visibility = View.GONE
-                supportActionBar?.show()
+                setToolbarVisibility(true)
+                bottom_nav_view.visibility = View.GONE
             }
         }
     }
 
+    fun setToolbarVisibility(visible: Boolean) {
+        toolbar.visibility = if(visible) View.VISIBLE else View.GONE
+    }
 
 }
