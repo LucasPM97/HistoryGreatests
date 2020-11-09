@@ -22,7 +22,7 @@ fun setBackgroundColorFromHex(view: View, hxColor: String) {
 @BindingAdapter("clipToOutline")
 fun setClipToOutline(view: View, enabled: Boolean) {
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-        view.clipToOutline = true
+        view.clipToOutline = enabled
     }
 }
 

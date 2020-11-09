@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.UserViewModel
+import com.lucas.historygreatests.ui.books.BookFragmentDirections
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -21,12 +22,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             userViewModel.initViewModel(it)
         }
 
-        if (userViewModel.isLogged()){
-            navController.navigate(R.id.navigation_home)
+        val action = if (userViewModel.isLogged()){
+                MainFragmentDirections.actionMainFragmentToNavigationHome()
         }
         else{
-            navController.navigate(R.id.navigation_login)
+                MainFragmentDirections.actionMainFragmentToNavigationLogin()
         }
+
+        navController.navigate(action)
 
     }
 }
