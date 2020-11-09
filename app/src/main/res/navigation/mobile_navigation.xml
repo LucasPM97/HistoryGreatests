@@ -8,12 +8,32 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.lucas.historygreatests.ui.main.MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_login"/>
+        <action
+            android:id="@+id/action_mainFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_home"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.lucas.historygreatests.ui.login.LoginFragment"
-        tools:layout="@layout/login_fragment" />
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_home"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_home"

@@ -1,4 +1,4 @@
-package com.lucas.historygreatests.models
+package com.lucas.historygreatests.models.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

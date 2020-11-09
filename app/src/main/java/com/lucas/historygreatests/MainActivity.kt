@@ -3,10 +3,12 @@ package com.lucas.historygreatests
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.lucas.historygreatests.databinding.ActivityMainBinding
 import com.lucas.historygreatests.utils.AnalyticsSender
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,42 +19,62 @@ class MainActivity : AppCompatActivity() {
         R.id.navigation_library,
     )
 
+    private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        setupBinding()
+        setupNavController()
+
+    }
+
+    fun setupBinding(){
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
+    }
+
+    fun setupNavController(){
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        toolbar.setupWithNavController(navController)
-        bottom_nav_view.setupWithNavController(navController)
+
+        binding.toolbar.setupWithNavController(navController)
+        binding.bottomNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
-            navController.previousBackStackEntry?.let {
-                if(it.destination.label.toString() != getString(R.string.screen_name_main)){
-                    AnalyticsSender.trackNavigation(
-                        from = it.destination.label.toString(),
-                        to = destination.label.toString()
-                    )
-                }
-            }
+            trackNavigation(navController, destination)
 
-            //AnalyticsSender.trackNavigation()
-            if(bottomNavigationScreensIds.contains(destination.id)) {
-                bottom_nav_view.visibility = View.VISIBLE
-                setToolbarVisibility(false)
+            showOrHideMainActivityViews(destination)
+        }
+    }
 
-            } else {
-                setToolbarVisibility(true)
-                bottom_nav_view.visibility = View.GONE
+    private fun trackNavigation(navController:NavController, destination: NavDestination){
+        navController.previousBackStackEntry?.let {
+            if(it.destination.label.toString() != getString(R.string.screen_name_main)){
+                AnalyticsSender.trackNavigation(
+                    from = it.destination.label.toString(),
+                    to = destination.label.toString()
+                )
             }
         }
     }
 
+    private fun showOrHideMainActivityViews(destination: NavDestination){
+        if(bottomNavigationScreensIds.contains(destination.id)) {
+            binding.bottomNavView.visibility = View.VISIBLE
+            setToolbarVisibility(false)
+
+        } else {
+            setToolbarVisibility(true)
+            binding.bottomNavView.visibility = View.GONE
+        }
+    }
+
     fun setToolbarVisibility(visible: Boolean) {
-        toolbar.visibility = if(visible) View.VISIBLE else View.GONE
+        binding.toolbar.visibility = if(visible) View.VISIBLE else View.GONE
     }
 
 }
