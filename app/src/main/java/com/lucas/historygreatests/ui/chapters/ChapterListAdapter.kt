@@ -3,6 +3,8 @@ package com.lucas.historygreatests.ui.chapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.historygreatests.databinding.FragmentChapterItemBinding
 import com.lucas.historygreatests.models.Chapter
@@ -49,7 +51,14 @@ class ChapterListAdapter(
 
                     );
 
-            binding.root.findNavController().navigate(action)
+            binding.root.findNavController().navigate(action,sharedElementsExtras())
+        }
+
+        private fun sharedElementsExtras(): FragmentNavigator.Extras {
+            return FragmentNavigatorExtras(
+                binding.image to "image_view",
+                binding.coloredBackground to "image_background"
+            )
         }
     }
 }

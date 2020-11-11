@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.databinding.FragmentChapterDetailedBinding
 import com.lucas.historygreatests.ui.BaseFragment
@@ -17,15 +18,21 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
 
     private lateinit var binding: FragmentChapterDetailedBinding
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setActivityToolbarVisibility(false)
         binding = FragmentChapterDetailedBinding.bind(view)
 
         binding.toolbar.setNavigationOnClickListener {
-            activity?.let {
-                it.onBackPressed()
-            }
+            activity?.onBackPressed()
         }
 
         addViewModelObservers()
