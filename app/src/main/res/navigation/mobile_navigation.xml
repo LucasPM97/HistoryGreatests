@@ -30,9 +30,13 @@
         <action
             android:id="@+id/action_navigation_login_to_navigation_home"
             app:destination="@id/navigation_home"
-            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
             app:launchSingleTop="true"
-            app:popUpTo="@id/navigation_home"/>
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -41,7 +45,11 @@
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_books"
-            app:destination="@id/navigation_books" />
+            app:destination="@id/navigation_books"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
@@ -63,7 +71,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_navigation_books_to_navigation_chapters"
-            app:destination="@id/navigation_chapters" />
+            app:destination="@id/navigation_chapters"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment

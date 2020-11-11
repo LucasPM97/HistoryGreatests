@@ -20,7 +20,8 @@
             android:id="@+id/colored_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            backgroundColor="@{chapter.imageColor}">
+            backgroundColor="@{chapter.imageColor}"
+            android:transitionName="image_background">
 
             <ImageView
                 android:id="@+id/image"
@@ -28,7 +29,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:scaleType="fitEnd"
-                imageUrl="@{chapter.imageUrl}"/>
+                imageUrl="@{chapter.imageUrl}"
+                android:transitionName="image_view"/>
 
             <View
                 android:layout_width="match_parent"
