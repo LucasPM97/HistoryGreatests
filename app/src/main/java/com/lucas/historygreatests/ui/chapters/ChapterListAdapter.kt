@@ -15,22 +15,24 @@ class ChapterListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentChapterItemBinding.inflate(inflater,parent,false)
+        val binding = FragmentChapterItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(chapters[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(chapters[position])
 
     override fun getItemCount(): Int = chapters.size
 
-    fun updateList(values:List<Chapter>) {
+    fun updateList(values: List<Chapter>) {
         chapters = values
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding:FragmentChapterItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(val binding: FragmentChapterItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(chapter:Chapter){
+        fun bind(chapter: Chapter) {
             binding.apply {
                 binding.chapter = chapter
                 root.setOnClickListener {
@@ -39,26 +41,19 @@ class ChapterListAdapter(
             }
         }
 
-        private fun onClick(chapter:Chapter){
+        private fun onClick(chapter: Chapter) {
             val action = ChaptersFragmentDirections
-                    .actionNavigationChaptersToNavigationChaptersDetailed(
-                        chapter.chapter_id,
-                        chapter.imageUrl,
-                        chapter.title,
-                        chapter.imageColor,
-                        chapter.startYear,
-                        chapter.endYear
+                .actionNavigationChaptersToNavigationChaptersDetailed(
+                    chapter.chapter_id,
+                    chapter.imageUrl,
+                    chapter.title,
+                    chapter.imageColor,
+                    chapter.startYear,
+                    chapter.endYear
 
-                    );
+                );
 
-            binding.root.findNavController().navigate(action,sharedElementsExtras())
-        }
-
-        private fun sharedElementsExtras(): FragmentNavigator.Extras {
-            return FragmentNavigatorExtras(
-                binding.image to "image_view",
-                binding.coloredBackground to "image_background"
-            )
+            binding.root.findNavController().navigate(action)
         }
     }
 }

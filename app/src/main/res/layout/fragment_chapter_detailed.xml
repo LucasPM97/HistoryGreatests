@@ -23,7 +23,6 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:transitionName="image_background"
                 android:layout_height="match_parent"
                 app:contentScrim="@color/surface_black_color"
                 app:expandedTitleTextAppearance="@style/ChapterHeaderTitleStyle"
@@ -40,7 +39,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:transitionName="image_view"
                         android:src="@android:drawable/sym_def_app_icon"
                         imageUrl="@{chapter.imageUrl}"/>
 

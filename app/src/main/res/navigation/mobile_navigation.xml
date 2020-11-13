@@ -87,7 +87,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_navigation_chapters_to_navigation_chapters_detailed"
-            app:destination="@id/navigation_chapters_detailed" />
+            app:destination="@id/navigation_chapters_detailed"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
