@@ -14,6 +14,8 @@ class HomeViewModel : BaseViewModel(), IHomeViewModel {
     override val firestoreService = FirestoreTopicsService()
 
     override fun loadTopics() {
+        if(topics.value != null && topics.value?.size!! > 0) return
+
         errorLoading.value = false
         loading.value = true
 
