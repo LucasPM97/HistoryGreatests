@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
 import com.lucas.historygreatests.databinding.FragmentListBinding
 import com.lucas.historygreatests.ui.BaseFragment
+import com.lucas.historygreatests.utils.extensions.IScrollToBottomListener
+import com.lucas.historygreatests.utils.extensions.setScrollToBottomListener
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +33,11 @@ class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
+            setScrollToBottomListener(5, object : IScrollToBottomListener {
+                override fun bottomReached() {
+                    viewModel.loadMoreItems(args.bookId)
+                }
+            })
         }
         implementObservers()
     }
