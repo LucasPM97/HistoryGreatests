@@ -46,10 +46,10 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_books"
             app:destination="@id/navigation_books"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -72,10 +72,10 @@
         <action
             android:id="@+id/action_navigation_books_to_navigation_chapters"
             app:destination="@id/navigation_chapters"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment

@@ -2,6 +2,7 @@ package com.lucas.historygreatests.ui.chapters
 
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.Chapter
+import com.lucas.historygreatests.utils.database.FirestorePaginationQueryCallback
 import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
 import com.lucas.historygreatests.utils.database.chapters.IFirestoreChaptersService
 
@@ -12,5 +13,5 @@ interface IChaptersViewModel {
 
     fun loadChapters(bookId:String)
 
-    fun getQuery(bookId:String, callback: FirestoreQueryCallback<Chapter>)
+    fun getQuery(bookId:String, callback: FirestorePaginationQueryCallback<Chapter>)
 }
