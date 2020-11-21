@@ -3,9 +3,9 @@ package com.lucas.historygreatests.utils.extensions
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
-import com.lucas.historygreatests.utils.database.FirestoreDocumentCallback
-import com.lucas.historygreatests.utils.database.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
+import com.lucas.historygreatests.repositories.services.FirestoreDocumentCallback
+import com.lucas.historygreatests.repositories.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.repositories.services.FirestoreQueryCallback
 
 
 inline fun <reified T> Query.getList(callback: FirestoreQueryCallback<T>){

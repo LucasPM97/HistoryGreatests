@@ -2,13 +2,11 @@ package com.lucas.historygreatests.ui.chapters
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.DocumentSnapshot
-import com.lucas.historygreatests.models.Book
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
-import com.lucas.historygreatests.utils.database.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
-import com.lucas.historygreatests.utils.database.chapters.FirestoreChaptersService
+import com.lucas.historygreatests.repositories.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.repositories.services.chapters.FirestoreChaptersService
 import com.lucas.historygreatests.utils.extensions.addRange
 
 class ChaptersViewModel : BaseViewModel(), IChaptersViewModel, IPaginationViewModel {

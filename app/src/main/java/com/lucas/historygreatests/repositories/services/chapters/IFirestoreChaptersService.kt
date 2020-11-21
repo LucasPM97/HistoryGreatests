@@ -1,10 +1,9 @@
-package com.lucas.historygreatests.utils.database.chapters
+package com.lucas.historygreatests.repositories.services.chapters
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.utils.database.FirestoreDocumentCallback
-import com.lucas.historygreatests.utils.database.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
+import com.lucas.historygreatests.repositories.services.FirestoreDocumentCallback
+import com.lucas.historygreatests.repositories.services.FirestorePaginationQueryCallback
 
 interface IFirestoreChaptersService {
 
