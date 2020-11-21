@@ -1,9 +1,9 @@
-package com.lucas.historygreatests.repositories.services.topics
+package com.lucas.historygreatests.services.topics
 
 import com.lucas.historygreatests.models.Topic
-import com.lucas.historygreatests.repositories.services.FirestoreQueryCallback
-import com.lucas.historygreatests.repositories.services.FirestoreConstants
-import com.lucas.historygreatests.repositories.services.FirestoreDatabase
+import com.lucas.historygreatests.services.FirestoreQueryCallback
+import com.lucas.historygreatests.services.FirestoreConstants
+import com.lucas.historygreatests.services.FirestoreDatabase
 import com.lucas.historygreatests.utils.extensions.getList
 
 class FirestoreTopicsService: FirestoreDatabase(), IFirestoreTopicsService {

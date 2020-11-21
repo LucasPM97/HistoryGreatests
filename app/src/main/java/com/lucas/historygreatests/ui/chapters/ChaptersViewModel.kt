@@ -5,8 +5,8 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
-import com.lucas.historygreatests.repositories.services.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.repositories.services.chapters.FirestoreChaptersService
+import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 import com.lucas.historygreatests.utils.extensions.addRange
 
 class ChaptersViewModel : BaseViewModel(), IChaptersViewModel, IPaginationViewModel {
