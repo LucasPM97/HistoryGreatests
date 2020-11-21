@@ -2,9 +2,8 @@ package com.lucas.historygreatests.ui.chapters
 
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.utils.database.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.utils.database.FirestoreQueryCallback
-import com.lucas.historygreatests.utils.database.chapters.IFirestoreChaptersService
+import com.lucas.historygreatests.repositories.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.repositories.services.chapters.IFirestoreChaptersService
 
 interface IChaptersViewModel {
 

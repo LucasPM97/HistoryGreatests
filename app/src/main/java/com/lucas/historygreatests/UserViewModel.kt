@@ -37,7 +37,8 @@ class UserViewModel : ViewModel() {
         AuthenticationManager.loginWithFirebaseGoogle(googleAuthCredential)
             .addOnCompleteListener { authTask ->
                 if (authTask.isSuccessful) {
-                    val isNewUser = authTask.result?.additionalUserInfo?.isNewUser
+                    val
+                            isNewUser = authTask.result?.additionalUserInfo?.isNewUser
                     AuthenticationManager.getUser()?.let {
                         user.value = AuthenticationManager.mapFirebaseUser(it)
                     }

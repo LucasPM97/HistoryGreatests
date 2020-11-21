@@ -1,4 +1,4 @@
-package com.lucas.historygreatests.utils.database
+package com.lucas.historygreatests.repositories.services
 
 import com.google.firebase.firestore.DocumentSnapshot
 import java.lang.Exception

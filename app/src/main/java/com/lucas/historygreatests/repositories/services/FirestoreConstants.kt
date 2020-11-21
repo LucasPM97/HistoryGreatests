@@ -1,4 +1,4 @@
-package com.lucas.historygreatests.utils.database
+package com.lucas.historygreatests.repositories.services
 
 object FirestoreConstants {
 
