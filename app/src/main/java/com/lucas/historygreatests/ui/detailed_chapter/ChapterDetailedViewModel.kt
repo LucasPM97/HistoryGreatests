@@ -3,8 +3,8 @@ package com.lucas.historygreatests.ui.detailed_chapter
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.repositories.services.FirestoreDocumentCallback
-import com.lucas.historygreatests.repositories.services.chapters.FirestoreChaptersService
+import com.lucas.historygreatests.services.FirestoreDocumentCallback
+import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 
 class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
 

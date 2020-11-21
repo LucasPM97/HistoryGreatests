@@ -2,7 +2,7 @@ package com.lucas.historygreatests.ui.detailed_chapter
 
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.repositories.services.chapters.IFirestoreChaptersService
+import com.lucas.historygreatests.services.chapters.IFirestoreChaptersService
 
 interface IChapterDetailedViewModel {
 

@@ -1,8 +1,8 @@
-package com.lucas.historygreatests.repositories.services.chapters
+package com.lucas.historygreatests.services.chapters
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.repositories.services.*
+import com.lucas.historygreatests.services.*
 import com.lucas.historygreatests.utils.extensions.getDocument
 import com.lucas.historygreatests.utils.extensions.getPagination
 

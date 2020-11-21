@@ -3,8 +3,8 @@ package com.lucas.historygreatests.ui.home
 import androidx.lifecycle.MutableLiveData
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.Topic
-import com.lucas.historygreatests.repositories.services.FirestoreQueryCallback
-import com.lucas.historygreatests.repositories.services.topics.FirestoreTopicsService
+import com.lucas.historygreatests.services.FirestoreQueryCallback
+import com.lucas.historygreatests.services.topics.FirestoreTopicsService
 import java.lang.Exception
 
 class HomeViewModel : BaseViewModel(), IHomeViewModel {

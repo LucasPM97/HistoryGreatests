@@ -1,4 +1,4 @@
-package com.lucas.historygreatests.repositories.services
+package com.lucas.historygreatests.services
 
 import java.lang.Exception
 
