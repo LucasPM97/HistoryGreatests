@@ -14,7 +14,7 @@ interface ChaptersDao {
     fun getChapters() : Flow<List<Chapter>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(chapter: Chapter)
+    suspend fun insertList(chapters: List<Chapter>)
 
     @Query("DELETE FROM chapters_table")
     suspend fun deleteAll()
