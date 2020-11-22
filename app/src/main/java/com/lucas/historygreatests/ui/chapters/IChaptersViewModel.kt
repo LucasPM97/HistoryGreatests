@@ -12,13 +12,10 @@ import kotlinx.coroutines.Job
 interface IChaptersViewModel {
 
     val chapters: LiveData<List<Chapter>>
-    val firestoreService: IFirestoreChaptersService
 
     val repository: ChapterRepository
 
     fun loadChapters(bookId:String)
-
-    fun getQuery(bookId:String, callback: FirestorePaginationQueryCallback<Chapter>)
 
     fun storeLocalChapters(chapterList: List<Chapter>, refresh: Boolean = false): Job
 }

@@ -27,11 +27,6 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
     override val isLoadingMore = MutableLiveData<Boolean>()
     override val errorLoadingMore = MutableLiveData<Boolean>()
 
-    override val firestoreService = FirestoreChaptersService()
-
-    override fun getQuery(bookId: String, callback: FirestorePaginationQueryCallback<Chapter>) =
-        firestoreService.getChaptersByBookId(bookId, lastDocumentSnapshot.value, callback)
-
 
     override fun loadChapters(bookId: String) {
         if (chapters.value != null && chapters.value?.size!! > 0) return
@@ -39,21 +34,23 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
         errorLoading.value = false
         loading.value = true
 
-        getQuery(bookId, object : FirestorePaginationQueryCallback<Chapter> {
-            override fun onSuccess(result: List<Chapter>?, lastDocument: DocumentSnapshot?) {
-                if (result != null) storeLocalChapters(result)
-                lastDocumentSnapshot.value = lastDocument
-            }
+        repository.loadChaptersFromRemote(
+            bookId,
+            object : FirestorePaginationQueryCallback<Chapter> {
+                override fun onSuccess(result: List<Chapter>?, lastDocument: DocumentSnapshot?) {
+                    if (result != null) storeLocalChapters(result)
+                    lastDocumentSnapshot.value = lastDocument
+                }
 
-            override fun onFailed(exception: Exception) {
-                errorLoading.value = true
-            }
+                override fun onFailed(exception: Exception) {
+                    errorLoading.value = true
+                }
 
-            override fun onCompleted() {
-                loading.value = false
-            }
+                override fun onCompleted() {
+                    loading.value = false
+                }
 
-        })
+            })
     }
 
 
@@ -61,22 +58,25 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
         errorLoadingMore.value = false
         isLoadingMore.value = true
 
-        getQuery(itemId, object : FirestorePaginationQueryCallback<Chapter> {
-            override fun onSuccess(result: List<Chapter>?, lastDocument: DocumentSnapshot?) {
+        repository.loadChaptersFromRemote(
+            itemId,
+            object : FirestorePaginationQueryCallback<Chapter> {
+                override fun onSuccess(result: List<Chapter>?, lastDocument: DocumentSnapshot?) {
 
-                if (result != null) storeLocalChapters(result)
-                lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
-            }
+                    if (result != null) storeLocalChapters(result)
+                    lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
+                }
 
-            override fun onFailed(exception: Exception) {
-                errorLoadingMore.value = true
-            }
+                override fun onFailed(exception: Exception) {
+                    errorLoadingMore.value = true
+                }
 
-            override fun onCompleted() {
-                isLoadingMore.value = false
-            }
+                override fun onCompleted() {
+                    isLoadingMore.value = false
+                }
 
-        })
+            }, lastDocumentSnapshot.value
+        )
     }
 
     override fun storeLocalChapters(chapterList: List<Chapter>, refresh: Boolean) =

@@ -9,8 +9,6 @@ import kotlinx.coroutines.Job
 interface IHomeViewModel {
     val topics: LiveData<List<Topic>>
 
-    val firestoreService: IFirestoreTopicsService
-
     val repository: TopicRepository
 
     fun loadTopics()
