@@ -20,7 +20,7 @@ class ChapterRepository(private val chaptersDao: ChaptersDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(chapter: Chapter) {
-        chaptersDao.insert(chapter)
+    suspend fun insertList(chapters: List<Chapter>) {
+        chaptersDao.insertList(chapters)
     }
 }
