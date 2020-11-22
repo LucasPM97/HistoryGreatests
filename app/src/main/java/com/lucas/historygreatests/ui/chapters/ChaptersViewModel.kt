@@ -1,5 +1,6 @@
 package com.lucas.historygreatests.ui.chapters
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
@@ -9,7 +10,7 @@ import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
 import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 import com.lucas.historygreatests.utils.extensions.addRange
 
-class ChaptersViewModel : BaseViewModel(), IChaptersViewModel, IPaginationViewModel {
+class ChaptersViewModel(application: Application) : BaseViewModel(application), IChaptersViewModel, IPaginationViewModel {
 
     override val chapters = MutableLiveData<List<Chapter>>()
     override val lastDocumentSnapshot = MutableLiveData<DocumentSnapshot>()

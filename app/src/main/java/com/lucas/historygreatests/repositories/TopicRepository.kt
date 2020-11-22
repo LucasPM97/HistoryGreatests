@@ -18,7 +18,7 @@ class TopicRepository(private val topicsDao: TopicsDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(topic: Topic) {
-        topicsDao.insert(topic)
+    suspend fun insertList(topics: List<Topic>) {
+        topicsDao.insertList(topics)
     }
 }

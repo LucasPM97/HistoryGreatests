@@ -18,7 +18,9 @@ class BookRepository(private val booksDao: BooksDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(book: Book) {
-        booksDao.insert(book)
+    suspend fun insertList(books: List<Book>, refresh:Boolean = false) {
+        if (refresh) booksDao.deleteAll()
+        booksDao.insertList(books)
     }
+
 }

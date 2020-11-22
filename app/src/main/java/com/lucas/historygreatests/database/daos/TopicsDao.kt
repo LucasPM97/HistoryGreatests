@@ -14,7 +14,7 @@ interface TopicsDao {
     fun getTopics() : Flow<List<Topic>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(topic: Topic)
+    suspend fun insertList(topics: List<Topic>)
 
     @Query("DELETE FROM topics_table")
     suspend fun deleteAll()
