@@ -81,6 +81,6 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
 
     override fun storeLocalChapters(chapterList: List<Chapter>, refresh: Boolean) =
         viewModelScope.launch {
-            repository.insertList(chapterList)
+            repository.insertList(chapterList, refresh)
         }
 }
