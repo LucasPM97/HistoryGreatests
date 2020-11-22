@@ -14,7 +14,7 @@ interface BooksDao {
     fun getBooks() : Flow<List<Book>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(book: Book)
+    suspend fun insertList(books: List<Book>)
 
     @Query("DELETE FROM books_table")
     suspend fun deleteAll()
