@@ -11,13 +11,9 @@ interface IBooksViewModel {
 
     val books: LiveData<List<Book>>
 
-    val firestoreService: IFirestoreBooksService
-
     val repository: BookRepository
 
     fun loadBooks(topicId:String)
 
     fun storeLocalBooks(bookList: List<Book>, refresh: Boolean = false): Job
-
-    fun getQuery(topicId:String, callback: FirestorePaginationQueryCallback<Book>)
 }

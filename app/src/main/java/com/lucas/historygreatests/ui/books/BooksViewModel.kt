@@ -28,18 +28,13 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
     override val isLoadingMore = MutableLiveData<Boolean>()
     override val errorLoadingMore = MutableLiveData<Boolean>()
 
-    override val firestoreService = FirestoreBooksService()
-
-    override fun getQuery(topicId: String, callback: FirestorePaginationQueryCallback<Book>) =
-        firestoreService.getBooksByTopicId(topicId, lastDocumentSnapshot.value, callback)
-
     override fun loadBooks(topicId: String) {
         if (books.value != null && books.value?.size!! > 0) return
 
         errorLoading.value = false
         loading.value = true
 
-        getQuery(topicId, object : FirestorePaginationQueryCallback<Book> {
+        repository.getBooksFromRemote(topicId, object : FirestorePaginationQueryCallback<Book> {
             override fun onSuccess(result: List<Book>?, lastDocument: DocumentSnapshot?) {
                 if (result != null) storeLocalBooks(result, true)
                 lastDocumentSnapshot.value = lastDocument
@@ -52,7 +47,6 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
             override fun onCompleted() {
                 loading.value = false
             }
-
         })
     }
 
@@ -63,7 +57,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
         errorLoadingMore.value = false
         isLoadingMore.value = true
 
-        getQuery(itemId, object : FirestorePaginationQueryCallback<Book> {
+        repository.getBooksFromRemote(itemId, object : FirestorePaginationQueryCallback<Book> {
             override fun onSuccess(result: List<Book>?, lastDocument: DocumentSnapshot?) {
                 if (result != null) storeLocalBooks(result)
                 lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
@@ -77,7 +71,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
                 isLoadingMore.value = false
             }
 
-        })
+        }, lastDocumentSnapshot.value)
     }
 
     override fun storeLocalBooks(bookList: List<Book>, refresh: Boolean) =

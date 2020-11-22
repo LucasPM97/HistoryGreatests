@@ -3,11 +3,15 @@ package com.lucas.historygreatests.repositories
 import androidx.annotation.WorkerThread
 import com.lucas.historygreatests.database.daos.TopicsDao
 import com.lucas.historygreatests.models.Topic
+import com.lucas.historygreatests.services.FirestoreQueryCallback
+import com.lucas.historygreatests.services.topics.FirestoreTopicsService
 import kotlinx.coroutines.flow.Flow
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
 class TopicRepository(private val topicsDao: TopicsDao) {
+
+    val firestoreService = FirestoreTopicsService()
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
@@ -21,4 +25,7 @@ class TopicRepository(private val topicsDao: TopicsDao) {
     suspend fun insertList(topics: List<Topic>) {
         topicsDao.insertList(topics)
     }
+
+    fun loadTopicsFromRemote(callback: FirestoreQueryCallback<Topic>) =
+        firestoreService.getHomeTopics(callback)
 }
