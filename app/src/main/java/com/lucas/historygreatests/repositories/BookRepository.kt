@@ -1,7 +1,6 @@
 package com.lucas.historygreatests.repositories
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.asLiveData
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.database.daos.BooksDao
 import com.lucas.historygreatests.models.Book
