@@ -2,9 +2,7 @@ package com.lucas.historygreatests.repositories
 
 import androidx.annotation.WorkerThread
 import com.google.firebase.firestore.DocumentSnapshot
-import com.lucas.historygreatests.database.daos.BooksDao
 import com.lucas.historygreatests.database.daos.ChaptersDao
-import com.lucas.historygreatests.models.Book
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.repositories.interfaces.IChapterRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
@@ -27,6 +25,7 @@ class ChapterRepository(private val chaptersDao: ChaptersDao) : IChapterReposito
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     override suspend fun insertList(chapters: List<Chapter>, refresh: Boolean) {
+        if(refresh) chaptersDao.deleteAll()
         chaptersDao.insertList(chapters)
     }
 
