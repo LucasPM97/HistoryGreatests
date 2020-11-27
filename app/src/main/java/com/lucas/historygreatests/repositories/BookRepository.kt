@@ -1,5 +1,7 @@
 package com.lucas.historygreatests.repositories
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.annotation.WorkerThread
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.database.daos.BooksDao
@@ -19,6 +21,8 @@ class BookRepository(private val booksDao: BooksDao) : IBookRepository {
     // Observed Flow will notify the observer when the data has changed.
     override val allBooks: Flow<List<Book>> = booksDao.getBooks()
 
+    override suspend fun getLastDocumentId() = booksDao.getLasBookId()
+
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
@@ -29,11 +33,18 @@ class BookRepository(private val booksDao: BooksDao) : IBookRepository {
         booksDao.insertList(books)
     }
 
-    override fun getBooksFromRemote(
+    override suspend fun getBooksFromRemote(
         topicId: String,
         callback: FirestorePaginationQueryCallback<Book>,
         lastDocumentSnapshot: DocumentSnapshot?
-    ) =
-        firestoreService.getBooksByTopicId(topicId, lastDocumentSnapshot, callback)
+    ) {
+        val lastDocumentId = getLastDocumentId()
+        if (lastDocumentSnapshot != null || lastDocumentId.isNullOrEmpty()){
+            firestoreService.getBooksByTopicIdWithSnapshot(topicId, lastDocumentSnapshot, callback)
+        }
+        else{
+            firestoreService.getBooksByTopicIdWithDocumentId(topicId, lastDocumentId, callback)
+        }
 
+    }
 }

@@ -42,7 +42,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
                     lastDocumentSnapshot.value = lastDocument
                 }
 
-                override fun onFailed(exception: Exception) {
+                override fun onFailed(exception: Exception?) {
                     errorLoading.value = true
                 }
 
@@ -67,7 +67,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
                     lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
                 }
 
-                override fun onFailed(exception: Exception) {
+                override fun onFailed(exception: Exception?) {
                     errorLoadingMore.value = true
                 }
 

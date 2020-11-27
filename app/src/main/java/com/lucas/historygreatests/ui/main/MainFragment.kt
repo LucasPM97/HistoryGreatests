@@ -22,14 +22,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             userViewModel.initViewModel(it)
         }
 
-        val action = if (userViewModel.isLogged()){
-                MainFragmentDirections.actionMainFragmentToNavigationHome()
+        if (userViewModel.isLogged()){
+            navController.navigate(R.id.navigation_home)
         }
         else{
-                MainFragmentDirections.actionMainFragmentToNavigationLogin()
+            navController.navigate(R.id.navigation_login)
         }
-
-        navController.navigate(action)
-
     }
 }
