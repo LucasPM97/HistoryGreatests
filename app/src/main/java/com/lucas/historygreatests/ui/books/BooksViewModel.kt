@@ -1,7 +1,9 @@
 package com.lucas.historygreatests.ui.books
 
 import android.app.Application
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -45,8 +47,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
                 Date(preferences.getLong(context.getString(R.string.book_db_expire_date), 0))
 
             return DatetimeHelper.checkIfExpirationDateHasExpired(expireDate)
-        }
-        catch (exception:java.lang.Exception){
+        } catch (exception: java.lang.Exception) {
             return true
         }
     }
@@ -104,12 +105,16 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
         viewModelScope.launch {
             val preferences = context.getSharedPreferences(
                 context.getString(R.string.greatest_settings),
-                MODE_PRIVATE
+                Context.MODE_PRIVATE
             )
-            preferences.edit().putLong(
-                context.getString(R.string.book_db_expire_date),
-                DatetimeHelper.getCurrentDate().time
-            ).apply()
+
+            preferences.edit(commit = true) {
+                putLong(
+                    context.getString(R.string.book_db_expire_date),
+                    DatetimeHelper.getCurrentDate().time
+                )
+            }
+
             repository.insertList(bookList, refresh)
         }
 

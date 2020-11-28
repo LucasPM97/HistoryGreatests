@@ -40,12 +40,7 @@ class FirestoreBooksService : FirestoreDatabase(), IFirestoreBooksService {
                 callback.onFailed(null)
             }
             .addOnSuccessListener { documenSnapshot ->
-                val query = db.collection(FirestoreConstants.Topics.COLLECTION)
-                    .document(topicId)
-                    .collection(FirestoreConstants.Topics.BOOKS_SUBCOLLECTION)
-                    .orderBy(FirestoreConstants.Topics.Indexes.VIEWS, Query.Direction.DESCENDING)
-
-                query.getPagination(limit = 1, lastDocument = documenSnapshot, callback = callback)
+                getBooksByTopicIdWithSnapshot(topicId, documenSnapshot, callback)
             }
     }
 

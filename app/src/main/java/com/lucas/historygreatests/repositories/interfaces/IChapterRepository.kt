@@ -15,6 +15,8 @@ interface IChapterRepository {
     // Observed Flow will notify the observer when the data has changed.
     val allChapters: Flow<List<Chapter>>
 
+    suspend fun getLastDocumentId(): String?
+
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
@@ -22,7 +24,7 @@ interface IChapterRepository {
     @WorkerThread
     suspend fun insertList(chapters: List<Chapter>, refresh: Boolean = false)
 
-    fun loadChaptersFromRemote(
+    suspend fun loadChaptersFromRemote(
         bookId: String,
         callback: FirestorePaginationQueryCallback<Chapter>,
         lastDocumentSnapshot: DocumentSnapshot? = null
