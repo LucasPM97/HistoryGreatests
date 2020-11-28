@@ -19,20 +19,30 @@ class ChapterRepository(private val chaptersDao: ChaptersDao) : IChapterReposito
     // Observed Flow will notify the observer when the data has changed.
     override val allChapters: Flow<List<Chapter>> = chaptersDao.getChapters()
 
+    override suspend fun getLastDocumentId() = chaptersDao.getLasChapterId()
+
+
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     override suspend fun insertList(chapters: List<Chapter>, refresh: Boolean) {
-        if(refresh) chaptersDao.deleteAll()
+        if (refresh) chaptersDao.deleteAll()
         chaptersDao.insertList(chapters)
     }
 
-    override fun loadChaptersFromRemote(
+    override suspend fun loadChaptersFromRemote(
         bookId: String,
         callback: FirestorePaginationQueryCallback<Chapter>,
         lastDocumentSnapshot: DocumentSnapshot?
-    ) =
-        firestoreService.getChaptersByBookId(bookId, lastDocumentSnapshot, callback)
+    ) {
+        val lastDocumentId = getLastDocumentId()
+        if (lastDocumentSnapshot != null || lastDocumentId.isNullOrEmpty()) {
+            firestoreService.getChaptersByBookId(bookId, lastDocumentSnapshot, callback)
+        } else {
+            firestoreService.getChaptersByBookIdWithDocumentId(bookId, lastDocumentId, callback)
+        }
+
+    }
 }

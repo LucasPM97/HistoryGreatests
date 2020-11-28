@@ -19,5 +19,6 @@
     <!-- SharedPreferences-->
     <string name="greatest_settings">Greatest_Settings</string>
     <string name="book_db_expire_date">BookDbExpireDate</string>
+    <string name="chapter_db_expire_date">ChapterDbExpireDate</string>
 
 </resources>

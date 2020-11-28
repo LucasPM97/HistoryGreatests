@@ -1,7 +1,5 @@
 package com.lucas.historygreatests.repositories
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.annotation.WorkerThread
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.database.daos.BooksDao
