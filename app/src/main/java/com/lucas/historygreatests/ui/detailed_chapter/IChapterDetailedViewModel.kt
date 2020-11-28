@@ -13,7 +13,5 @@ interface IChapterDetailedViewModel {
 
     fun loadChapter(chapterId: String)
 
-    fun shouldLoadFromRemote(): Boolean
-
     fun storeChapterUpdates(chapter: Chapter): Job
 }

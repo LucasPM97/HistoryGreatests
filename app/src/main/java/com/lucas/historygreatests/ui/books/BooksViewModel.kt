@@ -15,6 +15,7 @@ import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
 import com.lucas.historygreatests.repositories.BookRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.utils.helpers.DatabaseHelper
 import com.lucas.historygreatests.utils.helpers.DatetimeHelper
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -34,24 +35,8 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
     override val errorLoadingMore = MutableLiveData<Boolean>()
 
 
-    private fun shouldReloadList(): Boolean {
-        try {
-            val preferences = context.getSharedPreferences(
-                context.getString(R.string.greatest_settings),
-                MODE_PRIVATE
-            )
-
-            if (!preferences.contains(context.getString(R.string.book_db_expire_date))) return true
-
-            val expireDate =
-                Date(preferences.getLong(context.getString(R.string.book_db_expire_date), 0))
-
-            return DatetimeHelper.checkIfExpirationDateHasExpired(expireDate)
-        } catch (exception: java.lang.Exception) {
-            return true
-        }
-    }
-
+    private fun shouldReloadList() =
+        DatabaseHelper.checkIfDatabaseIsExpired(context, R.string.book_db_expire_date)
 
     override fun loadBooks(topicId: String) {
         viewModelScope.launch {

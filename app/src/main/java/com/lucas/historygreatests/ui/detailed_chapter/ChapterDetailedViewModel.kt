@@ -18,12 +18,11 @@ class ChapterDetailedViewModel(application: Application) : BaseViewModel(applica
         ChaptersRoomDatabase.getDatabase(context).chaptersDao()
     )
 
-    override fun chapterDetails(chapterId: String) = repository.getChapterById(chapterId).asLiveData()
+    override fun chapterDetails(chapterId: String) =
+        repository.getChapterById(chapterId).asLiveData()
 
 
     override fun loadChapter(chapterId: String) {
-        if (!shouldLoadFromRemote()) return
-
         errorLoading.value = false
         loading.value = true
 
@@ -47,10 +46,6 @@ class ChapterDetailedViewModel(application: Application) : BaseViewModel(applica
                     }
                 })
         }
-    }
-
-    override fun shouldLoadFromRemote(): Boolean {
-        return true
     }
 
     override fun storeChapterUpdates(chapter: Chapter) = viewModelScope.launch {
