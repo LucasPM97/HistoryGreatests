@@ -35,15 +35,16 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
         binding.toolbar.setNavigationOnClickListener {
             activity?.onBackPressed()
         }
-
         addViewModelObservers()
-        viewModel.loadChapter(args.chapterId)
     }
 
 
     private fun addViewModelObservers() {
         viewModel.chapterDetails(args.chapterId).observe(viewLifecycleOwner, { chapter ->
             chapter?.let {
+
+                if (chapter.body.isEmpty()) viewModel.loadChapter(args.chapterId)
+
                 with(binding) {
                     collapsingToolbar.title = chapter.title
                     appBarImage.loadFromUrl(chapter.imageUrl)
