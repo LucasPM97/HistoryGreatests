@@ -3,7 +3,6 @@ package com.lucas.historygreatests.ui.chapters
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,9 +12,8 @@ import com.lucas.historygreatests.database.ChaptersRoomDatabase
 import com.lucas.historygreatests.models.Chapter
 import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
-import com.lucas.historygreatests.repositories.ChapterRepository
+import com.lucas.historygreatests.repositories.BookChaptersRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 import com.lucas.historygreatests.utils.helpers.DatetimeHelper
 import kotlinx.coroutines.launch
 import java.util.*
@@ -23,7 +21,7 @@ import java.util.*
 class ChaptersViewModel(application: Application) : BaseViewModel(application), IChaptersViewModel,
     IPaginationViewModel {
 
-    override val repository = ChapterRepository(
+    override val repository = BookChaptersRepository(
         ChaptersRoomDatabase.getDatabase(context).chaptersDao()
     )
 
@@ -56,7 +54,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
         errorLoading.value = false
         loading.value = true
         viewModelScope.launch {
-            repository.loadChaptersFromRemote(
+            repository.loadBookChaptersFromRemote(
                 bookId,
                 object : FirestorePaginationQueryCallback<Chapter> {
                     override fun onSuccess(
@@ -86,7 +84,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
 
 
         viewModelScope.launch {
-            repository.loadChaptersFromRemote(
+            repository.loadBookChaptersFromRemote(
                 itemId,
                 object : FirestorePaginationQueryCallback<Chapter> {
                     override fun onSuccess(

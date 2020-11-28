@@ -7,7 +7,7 @@ import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
 import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 import kotlinx.coroutines.flow.Flow
 
-interface IChapterRepository {
+interface IBookChaptersRepository {
 
     val firestoreService: FirestoreChaptersService
 
@@ -24,7 +24,7 @@ interface IChapterRepository {
     @WorkerThread
     suspend fun insertList(chapters: List<Chapter>, refresh: Boolean = false)
 
-    suspend fun loadChaptersFromRemote(
+    suspend fun loadBookChaptersFromRemote(
         bookId: String,
         callback: FirestorePaginationQueryCallback<Chapter>,
         lastDocumentSnapshot: DocumentSnapshot? = null
