@@ -22,7 +22,8 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
     }
 
@@ -36,19 +37,19 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
         }
 
         addViewModelObservers()
-        setupViewModel()
         viewModel.loadChapter(args.chapterId)
     }
 
 
     private fun addViewModelObservers() {
-        viewModel.chapter.observe(viewLifecycleOwner, {chapter ->
-            with(binding){
-                collapsingToolbar.title = chapter.title
-                appBarImage.loadFromUrl(chapter.imageUrl)
-                body.text = chapter.body
+        viewModel.chapterDetails(args.chapterId).observe(viewLifecycleOwner, { chapter ->
+            chapter?.let {
+                with(binding) {
+                    collapsingToolbar.title = chapter.title
+                    appBarImage.loadFromUrl(chapter.imageUrl)
+                    body.text = chapter.body
+                }
             }
-
         })
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it)
@@ -64,9 +65,5 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
                 textError.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
-    }
-
-    private fun setupViewModel() {
-        viewModel.setup(args)
     }
 }

@@ -1,15 +1,19 @@
 package com.lucas.historygreatests.ui.detailed_chapter
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.services.chapters.IFirestoreChaptersService
+import com.lucas.historygreatests.repositories.interfaces.IDetailedChapterRepository
+import kotlinx.coroutines.Job
 
 interface IChapterDetailedViewModel {
 
-    val chapter: MutableLiveData<Chapter>
-    val firestoreService: IFirestoreChaptersService
+    val repository: IDetailedChapterRepository
 
-    fun setup(args: ChapterDetailedFragmentArgs)
+    fun chapterDetails(chapterId: String): LiveData<Chapter?>
 
-    fun loadChapter(chapterId:String)
+    fun loadChapter(chapterId: String)
+
+    fun shouldLoadFromRemote(): Boolean
+
+    fun storeChapterUpdates(chapter: Chapter): Job
 }

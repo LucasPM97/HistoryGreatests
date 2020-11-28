@@ -4,14 +4,14 @@ import androidx.annotation.WorkerThread
 import com.google.firebase.firestore.DocumentSnapshot
 import com.lucas.historygreatests.database.daos.ChaptersDao
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.repositories.interfaces.IChapterRepository
+import com.lucas.historygreatests.repositories.interfaces.IBookChaptersRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
 import com.lucas.historygreatests.services.chapters.FirestoreChaptersService
 import kotlinx.coroutines.flow.Flow
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
-class ChapterRepository(private val chaptersDao: ChaptersDao) : IChapterRepository {
+class BookChaptersRepository(private val chaptersDao: ChaptersDao) : IBookChaptersRepository {
 
     override val firestoreService = FirestoreChaptersService()
 
@@ -32,7 +32,7 @@ class ChapterRepository(private val chaptersDao: ChaptersDao) : IChapterReposito
         chaptersDao.insertList(chapters)
     }
 
-    override suspend fun loadChaptersFromRemote(
+    override suspend fun loadBookChaptersFromRemote(
         bookId: String,
         callback: FirestorePaginationQueryCallback<Chapter>,
         lastDocumentSnapshot: DocumentSnapshot?
