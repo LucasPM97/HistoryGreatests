@@ -11,5 +11,12 @@ class Book(
     val imageUrl: String = "",
     val startYear: String = "",
     val endYear: String = "",
-    val views: Int = 0
-)
+    val views: Int = 0,
+) {
+    var topicId: String = ""
+
+    fun setTopicId(topicId: String): Book {
+        this.topicId = topicId
+        return this
+    }
+}

@@ -9,11 +9,11 @@ import kotlinx.coroutines.Job
 
 interface IBooksViewModel {
 
-    val books: LiveData<List<Book>>
+    fun books(topicId: String): LiveData<List<Book>>
 
     val repository: BookRepository
 
-    fun loadBooks(topicId:String)
+    fun loadBooks(topicId: String)
 
-    fun storeLocalBooks(bookList: List<Book>, refresh: Boolean = false): Job
+    fun storeLocalBooks(topicId: String, bookList: List<Book>, refresh: Boolean = false): Job
 }

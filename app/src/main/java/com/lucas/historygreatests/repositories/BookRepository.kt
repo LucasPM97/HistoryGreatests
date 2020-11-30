@@ -17,9 +17,9 @@ class BookRepository(private val booksDao: BooksDao) : IBookRepository {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    override val allBooks: Flow<List<Book>> = booksDao.getBooks()
+    override fun getTopicBooksFlow(topicId: String): Flow<List<Book>> = booksDao.getBooksByTopicId(topicId)
 
-    override suspend fun getLastDocumentId() = booksDao.getLasBookId()
+    override suspend fun getLastDocumentId(topicId: String) = booksDao.getLasBookId(topicId)
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
@@ -36,11 +36,10 @@ class BookRepository(private val booksDao: BooksDao) : IBookRepository {
         callback: FirestorePaginationQueryCallback<Book>,
         lastDocumentSnapshot: DocumentSnapshot?
     ) {
-        val lastDocumentId = getLastDocumentId()
-        if (lastDocumentSnapshot != null || lastDocumentId.isNullOrEmpty()){
+        val lastDocumentId = getLastDocumentId(topicId)
+        if (lastDocumentSnapshot != null || lastDocumentId.isNullOrEmpty()) {
             firestoreService.getBooksByTopicIdWithSnapshot(topicId, lastDocumentSnapshot, callback)
-        }
-        else{
+        } else {
             firestoreService.getBooksByTopicIdWithDocumentId(topicId, lastDocumentId, callback)
         }
 

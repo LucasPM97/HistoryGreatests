@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BooksDao {
 
-    @Query("SELECT * FROM books_table ORDER BY views DESC")
-    fun getBooks() : Flow<List<Book>>
-    
-    @Query("SELECT book_id FROM books_table ORDER BY views ASC LIMIT 1")
-    suspend fun getLasBookId() : String
+    @Query("SELECT * FROM books_table WHERE topicId =:topicId ORDER BY views DESC")
+    fun getBooksByTopicId(topicId: String): Flow<List<Book>>
+
+    @Query("SELECT book_id FROM books_table WHERE topicId =:topicId ORDER BY views ASC LIMIT 1")
+    suspend fun getLasBookId(topicId: String): String
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(books: List<Book>)
