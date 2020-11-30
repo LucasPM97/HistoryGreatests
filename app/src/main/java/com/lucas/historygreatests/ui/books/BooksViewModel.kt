@@ -1,9 +1,6 @@
 package com.lucas.historygreatests.ui.books
 
 import android.app.Application
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,10 +12,9 @@ import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
 import com.lucas.historygreatests.repositories.BookRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
+import com.lucas.historygreatests.utils.extensions.updateItemsValues
 import com.lucas.historygreatests.utils.helpers.DatabaseHelper
-import com.lucas.historygreatests.utils.helpers.DatetimeHelper
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import java.util.*
 
 class BooksViewModel(application: Application) : BaseViewModel(application), IBooksViewModel,
@@ -28,7 +24,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
         BooksRoomDatabase.getDatabase(context).booksDao()
     )
 
-    override val books = repository.allBooks.asLiveData()
+    override fun books(topicId: String) = repository.getTopicBooksFlow(topicId).asLiveData()
 
     override val lastDocumentSnapshot = MutableLiveData<DocumentSnapshot>()
     override val isLoadingMore = MutableLiveData<Boolean>()
@@ -47,7 +43,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
 
             repository.getBooksFromRemote(topicId, object : FirestorePaginationQueryCallback<Book> {
                 override fun onSuccess(result: List<Book>?, lastDocument: DocumentSnapshot?) {
-                    if (result != null) storeLocalBooks(result, true)
+                    if (result != null) storeLocalBooks(topicId, result, true)
                     lastDocumentSnapshot.value = lastDocument
                 }
 
@@ -70,7 +66,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
             isLoadingMore.value = true
             repository.getBooksFromRemote(itemId, object : FirestorePaginationQueryCallback<Book> {
                 override fun onSuccess(result: List<Book>?, lastDocument: DocumentSnapshot?) {
-                    if (result != null) storeLocalBooks(result)
+                    if (result != null) storeLocalBooks(itemId, result)
                     lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
                 }
 
@@ -86,21 +82,15 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
         }
     }
 
-    override fun storeLocalBooks(bookList: List<Book>, refresh: Boolean) =
+    override fun storeLocalBooks(topicId: String, bookList: List<Book>, refresh: Boolean) =
         viewModelScope.launch {
-            val preferences = context.getSharedPreferences(
-                context.getString(R.string.greatest_settings),
-                Context.MODE_PRIVATE
-            )
 
-            preferences.edit(commit = true) {
-                putLong(
-                    context.getString(R.string.book_db_expire_date),
-                    DatetimeHelper.getCurrentDate().time
-                )
+            val newList = bookList.updateItemsValues {
+                it.setTopicId(topicId)
             }
 
-            repository.insertList(bookList, refresh)
+            DatabaseHelper.addDatabaseIsExpired(context, R.string.book_db_expire_date)
+            repository.insertList(newList, refresh)
         }
 
 }
