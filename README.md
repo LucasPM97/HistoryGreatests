@@ -9,6 +9,6 @@ An Android project to look at important people and a resume of how they aport to
 - [x] Firebase Authentication
 - [x] Firebase Firestore
 - [x] ViewBinding and DataBinding
-- [ ] Room : I know, Firestore already implement persistence. This is just to implement Room as a practice.
+- [x] Room : I know, Firestore already implement persistence. This is just to implement Room as a practice.
 - [ ] Compose elements
 - [ ] Material components
