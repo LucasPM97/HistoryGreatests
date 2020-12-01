@@ -22,7 +22,7 @@ class FirestoreBooksService : FirestoreDatabase(), IFirestoreBooksService {
             .collection(FirestoreConstants.Topics.BOOKS_SUBCOLLECTION)
             .orderBy(FirestoreConstants.Topics.Indexes.VIEWS, Query.Direction.DESCENDING)
 
-        query.getPagination(limit = 1, lastDocument = lastDocumentSnapshot, callback = callback)
+        query.getPagination(limit = 10, lastDocument = lastDocumentSnapshot, callback = callback)
 
     }
 
