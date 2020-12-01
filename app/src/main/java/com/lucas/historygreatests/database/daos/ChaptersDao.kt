@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ChaptersDao {
 
-    @Query("SELECT * FROM chapters_table ORDER BY `order` ASC")
-    fun getChapters(): Flow<List<Chapter>>
+    @Query("SELECT * FROM chapters_table WHERE bookId =:bookId ORDER BY `order` ASC")
+    fun getBookChapters(bookId: String): Flow<List<Chapter>>
 
     @Query("SELECT * FROM chapters_table WHERE chapter_id =:chapterId ")
     fun getChapterById(chapterId: String?): Flow<Chapter?>

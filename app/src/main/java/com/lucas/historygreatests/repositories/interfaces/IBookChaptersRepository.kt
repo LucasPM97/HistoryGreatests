@@ -13,7 +13,7 @@ interface IBookChaptersRepository {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allChapters: Flow<List<Chapter>>
+    fun getChaptersByBookId(bookId: String): Flow<List<Chapter>>
 
     suspend fun getLastDocumentId(): String?
 
