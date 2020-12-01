@@ -12,7 +12,6 @@ import com.lucas.historygreatests.models.viewModels.BaseViewModel
 import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
 import com.lucas.historygreatests.repositories.BookRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
-import com.lucas.historygreatests.utils.extensions.updateItemsValues
 import com.lucas.historygreatests.utils.helpers.DatabaseHelper
 import kotlinx.coroutines.launch
 import java.util.*
@@ -85,7 +84,7 @@ class BooksViewModel(application: Application) : BaseViewModel(application), IBo
     override fun storeLocalBooks(topicId: String, bookList: List<Book>, refresh: Boolean) =
         viewModelScope.launch {
 
-            val newList = bookList.updateItemsValues {
+            val newList = bookList.map {
                 it.setTopicId(topicId)
             }
 

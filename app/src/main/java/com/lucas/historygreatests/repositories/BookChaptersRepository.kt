@@ -17,7 +17,7 @@ class BookChaptersRepository(private val chaptersDao: ChaptersDao) : IBookChapte
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    override val allChapters: Flow<List<Chapter>> = chaptersDao.getChapters()
+    override fun getChaptersByBookId(bookId: String): Flow<List<Chapter>> = chaptersDao.getBookChapters(bookId)
 
     override suspend fun getLastDocumentId() = chaptersDao.getLasChapterId()
 

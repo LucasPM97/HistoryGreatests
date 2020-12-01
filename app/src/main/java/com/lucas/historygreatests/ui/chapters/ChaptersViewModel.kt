@@ -1,8 +1,6 @@
 package com.lucas.historygreatests.ui.chapters
 
 import android.app.Application
-import android.content.Context
-import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,9 +13,7 @@ import com.lucas.historygreatests.models.viewModels.IPaginationViewModel
 import com.lucas.historygreatests.repositories.BookChaptersRepository
 import com.lucas.historygreatests.services.FirestorePaginationQueryCallback
 import com.lucas.historygreatests.utils.helpers.DatabaseHelper
-import com.lucas.historygreatests.utils.helpers.DatetimeHelper
 import kotlinx.coroutines.launch
-import java.util.*
 
 class ChaptersViewModel(application: Application) : BaseViewModel(application), IChaptersViewModel,
     IPaginationViewModel {
@@ -26,7 +22,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
         ChaptersRoomDatabase.getDatabase(context).chaptersDao()
     )
 
-    override val chapters = repository.allChapters.asLiveData()
+    override fun chapters(bookId: String) = repository.getChaptersByBookId(bookId).asLiveData()
     override val lastDocumentSnapshot = MutableLiveData<DocumentSnapshot>()
     override val isLoadingMore = MutableLiveData<Boolean>()
     override val errorLoadingMore = MutableLiveData<Boolean>()
@@ -47,7 +43,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
                         result: List<Chapter>?,
                         lastDocument: DocumentSnapshot?
                     ) {
-                        if (result != null) storeLocalChapters(result)
+                        if (result != null) storeLocalChapters(bookId, result)
                         lastDocumentSnapshot.value = lastDocument
                     }
 
@@ -78,7 +74,7 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
                         lastDocument: DocumentSnapshot?
                     ) {
 
-                        if (result != null) storeLocalChapters(result)
+                        if (result != null) storeLocalChapters(itemId, result)
                         lastDocumentSnapshot.value = lastDocument ?: lastDocumentSnapshot.value
                     }
 
@@ -95,21 +91,14 @@ class ChaptersViewModel(application: Application) : BaseViewModel(application), 
         }
     }
 
-    override fun storeLocalChapters(chapterList: List<Chapter>, refresh: Boolean) =
+    override fun storeLocalChapters(bookId: String, chapterList: List<Chapter>, refresh: Boolean) =
         viewModelScope.launch {
 
-            val preferences = context.getSharedPreferences(
-                context.getString(R.string.greatest_settings),
-                Context.MODE_PRIVATE
-            )
-
-            preferences.edit(commit = true) {
-                putLong(
-                    context.getString(R.string.chapter_db_expire_date),
-                    DatetimeHelper.getCurrentDate().time
-                )
+            val newList = chapterList.map {
+                it.setBookId(bookId)
             }
+            DatabaseHelper.addDatabaseIsExpired(context, R.string.chapter_db_expire_date)
 
-            repository.insertList(chapterList, refresh)
+            repository.insertList(newList, refresh)
         }
 }

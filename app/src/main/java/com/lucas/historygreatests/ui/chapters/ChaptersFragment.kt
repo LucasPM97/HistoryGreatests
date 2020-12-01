@@ -43,7 +43,7 @@ class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
     }
 
     private fun implementObservers() {
-        viewModel.chapters.observe(viewLifecycleOwner, Observer { books ->
+        viewModel.chapters(args.bookId).observe(viewLifecycleOwner, Observer { books ->
             books?.let {
                 listAdapter.updateList(it);
             }

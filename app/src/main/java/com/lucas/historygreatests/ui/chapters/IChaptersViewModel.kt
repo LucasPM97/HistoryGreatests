@@ -7,11 +7,15 @@ import kotlinx.coroutines.Job
 
 interface IChaptersViewModel {
 
-    val chapters: LiveData<List<Chapter>>
+    fun chapters(bookId: String): LiveData<List<Chapter>>
 
     val repository: BookChaptersRepository
 
-    fun loadChapters(bookId:String)
+    fun loadChapters(bookId: String)
 
-    fun storeLocalChapters(chapterList: List<Chapter>, refresh: Boolean = false): Job
+    fun storeLocalChapters(
+        bookId: String,
+        chapterList: List<Chapter>,
+        refresh: Boolean = false
+    ): Job
 }
