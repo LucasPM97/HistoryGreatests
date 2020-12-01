@@ -22,7 +22,7 @@ class FirestoreChaptersService : FirestoreDatabase(), IFirestoreChaptersService 
             .document(bookId)
             .collection(FirestoreConstants.Books.CHAPTER_SUBCOLLECTION)
             .orderBy(FirestoreConstants.Books.Indexes.CHAPTER_SUBCOLLECTION_ORDER)
-        query.getPagination(limit = 1, lastDocument = lastDocumentSnapshot, callback = callback)
+        query.getPagination(limit = 10, lastDocument = lastDocumentSnapshot, callback = callback)
     }
 
     override fun getChaptersByBookIdWithDocumentId(
