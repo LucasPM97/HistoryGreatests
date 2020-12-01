@@ -65,12 +65,4 @@ open class BaseFragment(resourceLayoutId: Int) : Fragment(resourceLayoutId) {
             }
         }
     }
-
-    fun setActivityToolbarVisibility (visible : Boolean){
-        if (activity is MainActivity){
-            (activity as MainActivity).setToolbarVisibility(visible)
-        }
-    }
-
-
 }

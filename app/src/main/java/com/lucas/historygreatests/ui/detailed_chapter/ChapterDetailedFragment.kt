@@ -29,7 +29,6 @@ class ChapterDetailedFragment : BaseFragment(R.layout.fragment_chapter_detailed)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setActivityToolbarVisibility(false)
         binding = FragmentChapterDetailedBinding.bind(view)
 
         binding.toolbar.setNavigationOnClickListener {

@@ -3,6 +3,7 @@ package com.lucas.historygreatests
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -16,7 +17,13 @@ class MainActivity : AppCompatActivity() {
     private val bottomNavigationScreensIds = arrayOf(
         R.id.navigation_home,
         R.id.navigation_trending,
-        R.id.navigation_library,
+        R.id.navigation_library
+    )
+
+    private val noToolbarScreens = arrayOf(
+        *bottomNavigationScreensIds,
+        R.id.navigation_login,
+        R.id.navigation_chapters_detailed
     )
 
     private lateinit var binding: ActivityMainBinding
@@ -30,14 +37,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun setupBinding(){
+    fun setupBinding() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 
         setContentView(view)
     }
 
-    fun setupNavController(){
+    fun setupNavController() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         binding.toolbar.setupWithNavController(navController)
@@ -51,9 +58,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun trackNavigation(navController:NavController, destination: NavDestination){
+    private fun trackNavigation(navController: NavController, destination: NavDestination) {
         navController.previousBackStackEntry?.let {
-            if(it.destination.label.toString() != getString(R.string.screen_name_main)){
+            if (it.destination.label.toString() != getString(R.string.screen_name_main)) {
                 AnalyticsSender.trackNavigation(
                     from = it.destination.label.toString(),
                     to = destination.label.toString()
@@ -62,19 +69,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showOrHideMainActivityViews(destination: NavDestination){
-        if(bottomNavigationScreensIds.contains(destination.id)) {
-            binding.bottomNavView.visibility = View.VISIBLE
-            setToolbarVisibility(false)
-
-        } else {
-            setToolbarVisibility(true)
-            binding.bottomNavView.visibility = View.GONE
-        }
+    private fun showOrHideMainActivityViews(destination: NavDestination) {
+        binding.bottomNavView.isVisible = bottomNavigationScreensIds.contains(destination.id)
+        setToolbarVisibility(!noToolbarScreens.contains(destination.id))
     }
 
-    fun setToolbarVisibility(visible: Boolean) {
-        binding.toolbar.visibility = if(visible) View.VISIBLE else View.GONE
+    private fun setToolbarVisibility(visible: Boolean) {
+        binding.toolbar.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
 }
