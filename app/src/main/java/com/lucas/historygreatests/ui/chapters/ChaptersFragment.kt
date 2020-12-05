@@ -49,6 +49,13 @@ class ChaptersFragment : BaseFragment(R.layout.fragment_list) {
             }
         })
 
+        viewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading)
+                showLoadingDialog()
+            else
+                dismissLoadingDialog()
+        })
+
         viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
             binding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })

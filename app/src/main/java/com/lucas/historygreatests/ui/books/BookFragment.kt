@@ -51,6 +51,13 @@ class BookFragment : BaseFragment(R.layout.fragment_list) {
             }
         })
 
+        viewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading)
+                showLoadingDialog()
+            else
+                dismissLoadingDialog()
+        })
+
         viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
             viewBinding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
