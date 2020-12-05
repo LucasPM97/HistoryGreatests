@@ -1,25 +1,32 @@
 package com.lucas.historygreatests.ui.home
 
-import androidx.lifecycle.MutableLiveData
-import com.lucas.historygreatests.models.BaseViewModel
+import android.app.Application
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.lucas.historygreatests.database.TopicsRoomDatabase
 import com.lucas.historygreatests.models.Topic
-import com.lucas.historygreatests.utils.database.FirestoreCallback
-import com.lucas.historygreatests.utils.database.topics.FirestoreTopicsService
-import java.lang.Exception
+import com.lucas.historygreatests.models.viewModels.BaseViewModel
+import com.lucas.historygreatests.repositories.TopicRepository
+import com.lucas.historygreatests.services.FirestoreQueryCallback
+import kotlinx.coroutines.launch
 
-class HomeViewModel : BaseViewModel(), IHomeViewModel {
+class HomeViewModel(application: Application) : BaseViewModel(application), IHomeViewModel {
 
-    override val topics:MutableLiveData<List<Topic>> = MutableLiveData<List<Topic>>()
+    override val repository = TopicRepository(
+        TopicsRoomDatabase.getDatabase(context).topicsDao()
+    )
 
-    override val firestoreService = FirestoreTopicsService()
+    override val topics = repository.allTopics.asLiveData()
 
-    override fun loadTopics(){
+    override fun loadTopics() {
+        if (topics.value != null && topics.value?.size!! > 0) return
+
         errorLoading.value = false
         loading.value = true
 
-        firestoreService.getHomeTopics(object : FirestoreCallback<List<Topic>> {
+        repository.loadTopicsFromRemote(object : FirestoreQueryCallback<Topic> {
             override fun onSuccess(result: List<Topic>?) {
-                topics.value = result
+                if (result != null) storeLocalTopics(result)
             }
 
             override fun onFailed(exception: Exception) {
@@ -31,5 +38,9 @@ class HomeViewModel : BaseViewModel(), IHomeViewModel {
             }
 
         })
+    }
+
+    override fun storeLocalTopics(topicList: List<Topic>) = viewModelScope.launch {
+        repository.insertList(topicList)
     }
 }

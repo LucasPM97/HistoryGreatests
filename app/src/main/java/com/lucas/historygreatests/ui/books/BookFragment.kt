@@ -1,57 +1,65 @@
 package com.lucas.historygreatests.ui.books
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentListBinding
 import com.lucas.historygreatests.ui.BaseFragment
-import com.lucas.historygreatests.ui.detailed_chapter.ChapterDetailedFragmentArgs
-import kotlinx.android.synthetic.main.fragment_list.*
+import com.lucas.historygreatests.utils.extensions.IScrollToBottomListener
+import com.lucas.historygreatests.utils.extensions.setScrollToBottomListener
 
 /**
  * A fragment representing a list of Items.
  */
-class BookFragment : BaseFragment() {
+class BookFragment : BaseFragment(R.layout.fragment_list) {
 
     private val viewModel: BooksViewModel by viewModels()
     private val listAdapter = BookListAdapter(arrayListOf())
 
     private val args: BookFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
-    }
+    private lateinit var viewBinding: FragmentListBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewBinding = FragmentListBinding.bind(view)
+
         viewModel.loadBooks(args.topicId)
 
-        recycler_view.apply {
+        viewBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
+            setScrollToBottomListener(5, object : IScrollToBottomListener {
+                override fun bottomReached() {
+                    viewModel.loadMoreItems(args.topicId)
+                }
+            })
         }
+
         implementObservers()
     }
 
     private fun implementObservers() {
-        viewModel.books.observe(viewLifecycleOwner, Observer { books ->
-            books?.let{
+        viewModel.books(args.topicId).observe(viewLifecycleOwner, Observer { books ->
+            books?.let {
                 listAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            text_error.visibility = if(error) View.VISIBLE else View.GONE
+        viewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading)
+                showLoadingDialog()
+            else
+                dismissLoadingDialog()
+        })
+
+        viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
+            viewBinding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
     }
 

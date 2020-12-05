@@ -8,10 +8,7 @@ An Android project to look at important people and a resume of how they aport to
 - [x]   Navigation
 - [x] Firebase Authentication
 - [x] Firebase Firestore
-- [ ] Shared Element transition
-- [ ] Data binding
-- [ ] RxJava
-- [ ] Room
-- [ ] Text to speech
-- [ ] Notifications
-- [ ] Compose elements 
+- [x] ViewBinding and DataBinding
+- [x] Room : I know, Firestore already implement persistence. This is just to implement Room as a practice.
+- [ ] Compose elements
+- [ ] Material components

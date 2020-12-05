@@ -1,31 +1,30 @@
 package com.lucas.historygreatests.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.lucas.historygreatests.R
+import com.lucas.historygreatests.databinding.FragmentListBinding
 import com.lucas.historygreatests.ui.BaseFragment
-import kotlinx.android.synthetic.main.fragment_list.*
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_list) {
 
     private val viewModel: HomeViewModel by viewModels()
     private val topicListAdapter = TopicListAdapter(arrayListOf())
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
-    }
+    private lateinit var binding: FragmentListBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentListBinding.bind(view)
+
         viewModel.loadTopics()
 
-        recycler_view.apply {
+        binding.recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = topicListAdapter
         }
@@ -35,13 +34,20 @@ class HomeFragment : BaseFragment() {
 
     private fun implementObservers() {
         viewModel.topics.observe(viewLifecycleOwner, Observer { topics ->
-            topics?.let{
+            topics?.let {
                 topicListAdapter.updateList(it);
             }
         })
 
-        viewModel.errorLoading.observe(viewLifecycleOwner,{error ->
-            text_error.visibility = if(error) View.VISIBLE else View.GONE
+        viewModel.loading.observe(viewLifecycleOwner, { loading ->
+            if (loading)
+                showLoadingDialog()
+            else
+                dismissLoadingDialog()
+        })
+
+        viewModel.errorLoading.observe(viewLifecycleOwner, { error ->
+            binding.textError.visibility = if (error) View.VISIBLE else View.GONE
         })
     }
 }

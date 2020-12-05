@@ -1,49 +1,54 @@
 package com.lucas.historygreatests.ui.detailed_chapter
 
-import androidx.lifecycle.MutableLiveData
-import com.lucas.historygreatests.models.BaseViewModel
+import android.app.Application
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.lucas.historygreatests.database.ChaptersRoomDatabase
 import com.lucas.historygreatests.models.Chapter
-import com.lucas.historygreatests.utils.database.FirestoreCallback
-import com.lucas.historygreatests.utils.database.chapters.FirestoreChaptersService
+import com.lucas.historygreatests.models.viewModels.BaseViewModel
+import com.lucas.historygreatests.repositories.DetailedChapterRepository
+import com.lucas.historygreatests.services.FirestoreDocumentCallback
+import kotlinx.coroutines.launch
 
-class ChapterDetailedViewModel : BaseViewModel(), IChapterDetailedViewModel {
+class ChapterDetailedViewModel(application: Application) : BaseViewModel(application),
+    IChapterDetailedViewModel {
 
-    override val chapter = MutableLiveData<Chapter>()
-    override val firestoreService = FirestoreChaptersService()
 
-    override fun setup(args: ChapterDetailedFragmentArgs) {
-        args.apply {
-            chapter.value = Chapter(
-                chapter_id= chapterId,
-                title= title,
-                description = "",
-                imageUrl = imageUrl,
-                imageColor= imageColor,
-                startYear= startYear,
-                endYear= endYear ?: "",
-            )
-        }
+    override val repository = DetailedChapterRepository(
+        ChaptersRoomDatabase.getDatabase(context).chaptersDao()
+    )
 
-    }
+    override fun chapterDetails(chapterId: String) =
+        repository.getChapterById(chapterId).asLiveData()
 
-    override fun loadChapter(chapterId:String){
+
+    override fun loadChapter(chapterId: String) {
         errorLoading.value = false
         loading.value = true
 
-        firestoreService.getDetailedChapterById(chapterId,object : FirestoreCallback<Chapter> {
-            override fun onSuccess(result: Chapter?) {
-                chapter.value = result
-            }
+        viewModelScope.launch {
+            repository.loadChapterDataFromRemote(chapterId,
+                object : FirestoreDocumentCallback<Chapter> {
+                    override fun onSuccess(result: Chapter?) {
+                        if (result != null)
+                            storeChapterUpdates(result)
+                        else
+                            errorLoading.value = true
 
-            override fun onFailed(exception: Exception) {
-                errorLoading.value = true
-            }
+                    }
 
-            override fun onCompleted() {
-                loading.value = false
-            }
+                    override fun onFailed(exception: Exception) {
+                        errorLoading.value = true
+                    }
 
-        })
+                    override fun onCompleted() {
+                        loading.value = false
+                    }
+                })
+        }
     }
 
+    override fun storeChapterUpdates(chapter: Chapter) = viewModelScope.launch {
+        repository.updateChapter(chapter)
+    }
 }

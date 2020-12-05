@@ -1,8 +1,8 @@
-package com.lucas.historygreatests.utils.database
+package com.lucas.historygreatests.services
 
 import java.lang.Exception
 
-interface FirestoreCallback<T> {
+interface FirestoreDocumentCallback<T> {
 
     fun onSuccess(result: T?)
 

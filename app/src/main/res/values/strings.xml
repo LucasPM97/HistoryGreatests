@@ -16,4 +16,9 @@
     <string name="screen_name_detailed_chapter">DetailedChapter</string>
     <string name="screen_name_login">Login</string>
     <string name="screen_name_main">Main</string>
+    <!-- SharedPreferences-->
+    <string name="greatest_settings">Greatest_Settings</string>
+    <string name="book_db_expire_date">BookDbExpireDate</string>
+    <string name="chapter_db_expire_date">ChapterDbExpireDate</string>
+
 </resources>
