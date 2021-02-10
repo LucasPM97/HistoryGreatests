@@ -15,8 +15,8 @@ class Chapter(
     val startYear: String = "",
     val endYear: String? = "",
     val order: Int = 0,
-) {
     var bookId: String = ""
+) {
 
     fun setBookId(bookId: String): Chapter {
         this.bookId = bookId
