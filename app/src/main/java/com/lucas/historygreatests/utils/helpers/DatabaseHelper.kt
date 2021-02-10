@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit
 object DatabaseHelper {
 
     fun checkIfDatabaseIsExpired(context: Context, dbExpiredStringId: Int): Boolean {
+
+        //TODO: Add a filter for BookId. Currently, you'll only be able get 1 book' chapters
         val preferences = context.getSharedPreferences(
             context.getString(R.string.greatest_settings),
             Context.MODE_PRIVATE
